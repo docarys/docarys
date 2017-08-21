@@ -1,0 +1,5 @@
+site_name: mydocs
+pages:
+  - Home: index.md
+  - Level 1:
+    - Level 2: level1/index.md

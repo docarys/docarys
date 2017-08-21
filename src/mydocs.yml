@@ -1,0 +1,15 @@
+site_name: mydocs
+theme_dir: default
+repo_url: https://github.com/sesispla/mydocs
+repo_name: Fork me on Github
+copyright: sesispla@outlook.com (MIT)
+extra:
+  feature: tabs
+  logo: img/logo.png
+  palette: 
+    primary: lime
+    accent: indigo
+pages:
+  - Home: index.md
+  - Level 1:
+    - Level 2: level1/index.md
