@@ -3,11 +3,12 @@
 
 var path = require('path');
 
-function Page(cfg, template, sourceFile, targetFile) {
+function RenderContext(cfg, template, sourceFile, targetFile) {
     this.config = cfg.context;
     this.sourceFile = sourceFile;
     this.targetFile = targetFile;
     this.templateFile = cfg.templatePath + '/' + template;
+    this.page = {};
 }
 
-module.exports = Page;
+module.exports = RenderContext;
