@@ -1,11 +1,6 @@
 module.exports = function (grunt) {
   grunt.initConfig ({
     sass: {
-      options: {
-        loadPath: [ "node_modules/modularscale-sass/stylesheets",
-        "node_modules/material-design-color",
-        "node_modules/material-shadows"]
-      },
       dist: {
         files: {
           'src/default/css/materialize.css' : 'src/default/scss/materialize.scss'
