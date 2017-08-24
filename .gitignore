@@ -61,4 +61,4 @@ typings/
 .env
 
 # mydocs builds
-src/build
+test/build
