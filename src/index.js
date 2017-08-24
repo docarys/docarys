@@ -7,11 +7,12 @@ var chalk = require("chalk");
 var config = require("./config.js");
 var liveserver = require("live-server");
 var program = require("commander");
+var pkg = require('../package.json');
 var path = require("path");
 var render = require("./render.js");
 var watch = require('watch');
 
-program.version("0.1.0")    
+program.version(pkg.version)    
     .command("build", "Build the documentation")
     .command("serve", "Start the integrate")
     .option("-v --verbose", "Enable verbouse output")
