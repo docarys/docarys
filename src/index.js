@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*jslint node: true */
 "use strict";
 
@@ -8,7 +10,6 @@ var program = require("commander");
 var path = require("path");
 var render = require("./render.js");
 var watch = require('watch');
-
 var commands = {
     cfg: new config(),
     build: function () {
