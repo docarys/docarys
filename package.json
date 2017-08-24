@@ -4,6 +4,7 @@
   "description": "Yet another static web site utility for technical documentation",
   "main": "src/index.js",
   "dependencies": {
+    "commander": "^2.11.0",
     "fs-extra": "^4.0.1",
     "live-server": "^1.2.0",
     "markdown": "^0.5.0",
