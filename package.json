@@ -4,6 +4,7 @@
   "description": "Yet another static web site utility for technical documentation",
   "main": "src/index.js",
   "dependencies": {
+    "chalk": "^2.1.0",
     "commander": "^2.11.0",
     "fs-extra": "^4.0.1",
     "live-server": "^1.2.0",
@@ -25,7 +26,9 @@
     "style-loader": "^0.18.2"
   },
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "node ./src/index.js build",
+    "build": "node ./src/index.js build",
+    "serve": "node ./src/index.js serve",
     "test": "mocha ./src/*.test.js ./src/**/*.test.js",
     "cover": "istanbul cover _mocha ./src/*.test.js ./src/**/*.test.js",
     "live-server": "live-server --port=5000 --root=/"
