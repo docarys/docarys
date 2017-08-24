@@ -3,6 +3,7 @@
 
 var fs = require('fs');
 var fse = require('fs-extra');
+var log = require("logger").createLogger();
 var parser = require('./parser.js');
 var path = require('path');
 var mkdirp = require('mkdirp');
@@ -20,7 +21,9 @@ function Render (config) {
 
     this.render = function() {
         var pages = this.config.context.pages;
+        log.info("Cleaning site directory");
         rimraf.sync(this.config.targetPath);
+        log.info("Building documentation to directory: '" + this.config.targetPath + "'");
         this.renderTheme(this.config.templatePath, this.config.targetPath);
         this.renderPage(pages);
     }

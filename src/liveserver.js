@@ -1,8 +1,10 @@
 /*jslint node: true */
 "use strict";
 
+var chalk = require("chalk");
 var liveServer = require("live-server");
-var path = require('path');
+var log = require("logger").createLogger();
+var path = require("path");
 
 function LiveServer(config) {
     this.config = config;
@@ -14,9 +16,10 @@ function LiveServer(config) {
         // file: "index.html", // When set, serve this file for every 404 (useful for single-page applications)
         wait: 1000, // Waits for all changes, before reloading. Defaults to 0 sec.
         // mount: [['/components', './node_modules']], // Mount a directory to a route.
-        logLevel: 2, // 0 = errors only, 1 = some, 2 = lots
+        logLevel: 0, // 0 = errors only, 1 = some, 2 = lots
     };
 
+    log.info(chalk.yellow("Serving on http://127.0.0.1:" + params.port));
     liveServer.start(params);
 }
 
