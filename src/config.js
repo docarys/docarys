@@ -25,7 +25,7 @@ function Config(filename) {
         context: this.context,
         sourcePath: this.sourcePath,
         targetPath: this.targetPath,
-        templatePath: this.templatePath
+        templatePath: this.templatePath,
     }
 }
 

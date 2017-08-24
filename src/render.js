@@ -2,28 +2,37 @@
 "use strict";
 
 var fs = require('fs');
+var fse = require('fs-extra');
 var parser = require('./parser.js');
 var path = require('path');
 var mkdirp = require('mkdirp');
 var nunjucks = require('nunjucks');
-var page = require('./page.js');
+var renderContext = require('./renderContext.js');
 var rimraf = require('rimraf');
 
 function Render (config) {
     /** The configuration file */
     this.config = config;
 
-    nunjucks.configure(this.config.templatePath);
-
-    /** Base path to write the output */
-    this.outputPath = '/build';
+    nunjucks.configure(this.config.templatePath, {autoescape: false});
 
     this.parser = new parser();
 
     this.render = function() {
         var pages = this.config.context.pages;
         rimraf.sync(this.config.targetPath);
+        this.renderTheme(this.config.templatePath, this.config.targetPath);
         this.renderPage(pages);
+    }
+
+    this.renderTheme = function(templatePath, targetPath) {    
+        var opts = {
+            // filter: new RegExp('^((?!\.html).)*$')
+            filter: function (filename) {
+                return !filename.endsWith('.html');
+            }
+        };
+        fse.copySync(templatePath, targetPath, opts, function() {});
     }
 
     this.renderPage = function(targets) {
@@ -41,12 +50,17 @@ function Render (config) {
                 }                            
                 var sourceFile = path.resolve(this.config.sourcePath + "/" + filename);
                 var targetFile = path.resolve(this.config.targetPath + "/" + filename.replace(".md", ".html"));
-                var templatePath = "main.html";
-                var pg = new page(this.config, templatePath, sourceFile, targetFile);
-                var md = fs.readFileSync(pg.sourceFile, 'utf8');
-                pg.content = this.parser.toHtml(md);               
-                nunjucks.render(pg.templateFile, pg);
+                var templateFile = "docs.html";
+                var ctx = new renderContext(this.config, templateFile, sourceFile, targetFile);
+                var sourceContent = fs.readFileSync(ctx.sourceFile, 'utf8');
+                if (ctx.sourceFile.endsWith(".md")) {                                     
+                    ctx.page.content = this.parser.toHtml(sourceContent);
+                }
+                else {
+                    ctx.page.content = sourceContent;
+                }
                 mkdirp.sync(path.dirname(targetFile));
+                var html = nunjucks.render(ctx.templateFile, ctx);
                 fs.writeFileSync(targetFile, html);
             }
         }, this);
