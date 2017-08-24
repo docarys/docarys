@@ -6,13 +6,14 @@
   "bin": {
     "mydocs": "src/index.js"
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "dependencies": {
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
     "fs-extra": "^4.0.1",
     "live-server": "^1.2.0",
-    "logger": "0.0.1",
     "markdown": "^0.5.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
