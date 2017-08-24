@@ -3,7 +3,6 @@
 
 var chalk = require("chalk");
 var liveServer = require("live-server");
-var log = require("logger").createLogger();
 var path = require("path");
 
 function LiveServer(config) {
@@ -19,7 +18,7 @@ function LiveServer(config) {
         logLevel: 0, // 0 = errors only, 1 = some, 2 = lots
     };
 
-    log.info(chalk.yellow("Serving on http://127.0.0.1:" + params.port));
+    console.info(chalk.yellow("Serving on http://127.0.0.1:" + params.port));
     liveServer.start(params);
 }
 
