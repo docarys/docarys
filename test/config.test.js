@@ -12,6 +12,7 @@ describe('Configuration', function () {
         expect(cfg.context).toExist('No configuration has been loaded from YAML file');
         expect(cfg.sourcePath).toBe(path.resolve(__dirname + '/docs'));
         expect(cfg.targetPath).toBe(path.resolve(__dirname + '/build'));
+        expect(cfg.templatePath).toBe(cfg.modulePath + "/default");
     });
     it('Should load custom file and properties', function () {
         var cfg = new config('mydocs.custom.yml');
@@ -29,5 +30,10 @@ describe('Configuration', function () {
         var subpage = page['Level 1'][0];
         expect(subpage).toExist('Level 1 should contain a child');
         expect(subpage['Level 2']).toBe('level1/index.md');
+    });
+    it('Should change templateDir if specified', function () {
+        var cfg = new config('mydocs.theme_dir.yml');
+        expect(cfg.context['theme_dir']).toBe('custom', 'site_name should be "custom" in file mydocs.theme_dir.yml');
+        expect(cfg.templatePath).toBe(cfg.cwdPath + "/custom");
     });
 });
