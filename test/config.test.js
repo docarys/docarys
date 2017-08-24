@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var config = require('./config.js');
+var config = require('../src/config.js');
 var expect = require('expect');
 var path = require('path');
 

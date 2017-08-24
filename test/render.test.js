@@ -1,10 +1,10 @@
 /*jslint node: true */
 "use strict";
-var config = require('./config.js');
+var config = require('../src/config.js');
 var expect = require('expect');
 var fs = require('fs');
 var path = require('path');
-var render = require('./render.js');
+var render = require('../src/render.js');
 
 describe('Render', function () {
     it('Should create the files', function () {
