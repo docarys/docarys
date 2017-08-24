@@ -32,13 +32,9 @@
     "node-sass": "^4.5.3",
     "style-loader": "^0.18.2"
   },
-  "scripts": {
-    "start": "node ./src/index.js build",
-    "build": "node ./src/index.js build",
-    "serve": "node ./src/index.js serve",
-    "test": "mocha ./src/*.test.js ./src/**/*.test.js",
-    "cover": "istanbul cover _mocha ./src/*.test.js ./src/**/*.test.js",
-    "live-server": "live-server --port=5000 --root=/"
+  "scripts": {    
+    "test": "mocha ./test/*.test.js ./test/**/*.test.js",
+    "cover": "istanbul cover _mocha ./test/*.test.js ./src/**/*.test.js"
   },
   "repository": {
     "type": "git",
