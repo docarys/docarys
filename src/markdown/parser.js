@@ -2,7 +2,7 @@
 "use strict";
 
 var markdown = require("markdown").markdown;
-var linkFilter = require("./filters/linkFilter.js");
+var linkFilter = require("../filters/linkFilter.js");
 
 /** The responsible for text parsing */
 function Parser() {

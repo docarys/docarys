@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var utils = require("./utils.js");
+var utils = require("../utils.js");
 
 /** A TOC based on lib/markdown intermediate model structure */
 function MdToc(documentTree) {    

@@ -2,7 +2,7 @@
 "use strict";
 
 var expect = require('expect');
-var parser = require('../src/parser.js');
+var parser = require('../src/markdown/parser.js');
 var fs = require('fs');
 
 describe('Parser', function () {

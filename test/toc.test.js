@@ -3,7 +3,7 @@
 var expect = require("expect");
 var fs = require("fs");
 var markdown = require("markdown").markdown;
-var mdToc = require("../src/mdToc.js");
+var mdToc = require("../src/markdown/toc.js");
 
 
 describe("TOC", function () {

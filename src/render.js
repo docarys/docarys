@@ -3,7 +3,7 @@
 
 var fs = require("fs");
 var fse = require("fs-extra");
-var parser = require("./parser.js");
+var parser = require("./markdown/parser.js");
 var path = require("path");
 var mkdirp = require("mkdirp");
 var nunjucks = require("nunjucks");

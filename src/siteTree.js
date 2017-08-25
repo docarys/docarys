@@ -2,8 +2,8 @@
 "use strict";
 
 var fs = require("fs");
-var mdParser = require("./parser.js");
-var mdToc = require("../src/mdToc.js");
+var mdParser = require("./markdown/parser.js");
+var mdToc = require("./markdown/toc.js");
 var path = require("path");
 var utils = require("./utils.js");
 
