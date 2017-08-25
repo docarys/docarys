@@ -1,8 +1,10 @@
 /*jslint node: true */
 "use strict";
 
-var yamljs = require('yamljs');
+var chalk = require("chalk");
+var fs = require("fs");
 var path = require('path');
+var yamljs = require('yamljs');
 
 function Config(filename) {
     /** Filename to use */
@@ -11,8 +13,12 @@ function Config(filename) {
     this.cwdPath = process.cwd();
     /** Module path */
     this.modulePath = __dirname;
-    /** Full path to the file, starting from current dir */
-    this.fullpath = path.resolve(this.cwdPath + '/' + this.filename);
+    /** Full path to the config file, starting from current dir */
+    this.cfgfile = path.resolve(this.cwdPath + '/' + this.filename);
+    if (!fs.existsSync(this.cfgfile)) {
+        console.error(chalk.red("Config file '" + this.cfgfile +"' does not exist.'"));
+        process.exit(-1);
+    }
     /** Variable context, resulting from the load of the YAML file */
     this.context = yamljs.load(this.fullpath);
     /** Full path where the source documents are stored */
