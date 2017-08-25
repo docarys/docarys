@@ -1,14 +1,16 @@
 /*jslint node: true */
 "use strict";
 
-var fs = require('fs');
-var fse = require('fs-extra');
-var parser = require('./parser.js');
-var path = require('path');
-var mkdirp = require('mkdirp');
-var nunjucks = require('nunjucks');
-var renderContext = require('./renderContext.js');
-var rimraf = require('rimraf');
+var fs = require("fs");
+var fse = require("fs-extra");
+var parser = require("./parser.js");
+var path = require("path");
+var mkdirp = require("mkdirp");
+var nunjucks = require("nunjucks");
+var renderContext = require("./renderContext.js");
+var rimraf = require("rimraf");
+var mdToc = require("./mdToc.js");
+var utils = require("./utils.js");
 
 function Render (config) {
     /** The configuration file */
@@ -55,8 +57,11 @@ function Render (config) {
                 var templateFile = "docs.html";
                 var ctx = new renderContext(this.config, templateFile, sourceFile, targetFile);
                 var sourceContent = fs.readFileSync(ctx.sourceFile, 'utf8');
-                if (ctx.sourceFile.endsWith(".md")) {                                     
-                    ctx.page.content = this.parser.toHtml(sourceContent);
+                if (ctx.sourceFile.endsWith(".md")) {
+                    ctx.page.url = utils.pathToUri(this.config.targetPath, targetFile);                    
+                    ctx.page.documentTree = this.parser.parse(sourceContent);
+                    ctx.page.content = this.parser.toHtml(ctx.page.documentTree, ctx);
+                    ctx.page.toc = new mdToc(ctx.page);
                 }
                 else {
                     ctx.page.content = sourceContent;

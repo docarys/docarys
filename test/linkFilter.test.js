@@ -2,7 +2,7 @@
 "use strict";
 
 var expect = require('expect');
-var linkFilter = require('./linkFilter.js');
+var linkFilter = require('../src/filters/linkFilter.js');
 var markdown = require("markdown").markdown;
 var fs = require('fs');
 
