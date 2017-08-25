@@ -9,10 +9,8 @@ var mdToc = require("../src/mdToc.js");
 describe("TOC", function () {
     it("Should create a TOC from a basic document tree", function() {
         var content = fs.readFileSync(__dirname + "/docs/index.md", 'utf8');
-        var page = {
-            documentTree: markdown.parse(content)
-        };
-        var toc = new mdToc(page);
+        var documentTree = markdown.parse(content);
+        var toc = new mdToc(documentTree);
 
         expect(toc).toExist();
         expect(toc.children.length).toBe(1); // Root

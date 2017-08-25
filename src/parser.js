@@ -11,7 +11,7 @@ function Parser() {
     this.filters = [new linkFilter()];
 
     /** Takes an input string, parses and filters it, returning the result */
-    this.parse = function(input, context) {
+    this.parse = function(input) {
         var documentTree = markdown.parse(input);
         this.filters.forEach(function(filter){
             filter.apply(documentTree);
@@ -21,7 +21,7 @@ function Parser() {
     }
 
     /** Converts a Document Tree to HTML */
-    this.toHtml = function(documentTree, context) {
+    this.toHtml = function(documentTree) {
         return markdown.toHTML(documentTree);
     }
 

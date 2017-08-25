@@ -18,7 +18,7 @@ function LiveServer(config) {
         logLevel: 0, // 0 = errors only, 1 = some, 2 = lots
     };
 
-    console.info(chalk.yellow("Serving on http://127.0.0.1:" + params.port));
+    console.info(chalk.yellow("Serving '" + config.targetPath +"' on http://127.0.0.1:" + params.port));
     liveServer.start(params);
 }
 

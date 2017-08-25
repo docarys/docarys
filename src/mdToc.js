@@ -4,9 +4,8 @@
 var utils = require("./utils.js");
 
 /** A TOC based on lib/markdown intermediate model structure */
-function MdToc(page) {
-    var tree = page.documentTree;
-    return exploreTree(tree);
+function MdToc(documentTree) {    
+    return exploreTree(documentTree);
 }
 
 /** Explores all the tree elements */
