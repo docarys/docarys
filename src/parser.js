@@ -20,9 +20,8 @@ function Parser() {
         return documentTree;
     }
 
-    /** Parses and filters an input string, returning the result in HTML */
-    this.toHtml = function(input, context) {
-        var documentTree = this.parse(input);
+    /** Converts a Document Tree to HTML */
+    this.toHtml = function(documentTree, context) {
         return markdown.toHTML(documentTree);
     }
 

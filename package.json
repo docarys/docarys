@@ -19,6 +19,7 @@
     "ncp": "^2.0.0",
     "nunjucks": "^3.0.1",
     "rimraf": "^2.6.1",
+    "speakingurl": "^14.0.1",
     "watch": "^1.0.2",
     "yamljs": "^0.3.0"
   },
@@ -32,7 +33,7 @@
     "node-sass": "^4.5.3",
     "style-loader": "^0.18.2"
   },
-  "scripts": {    
+  "scripts": {
     "test": "mocha ./test/*.test.js ./test/**/*.test.js",
     "cover": "istanbul cover _mocha ./test/*.test.js ./src/**/*.test.js"
   },
