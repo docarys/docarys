@@ -20,7 +20,7 @@ function Config(filename) {
         process.exit(-1);
     }
     /** Variable context, resulting from the load of the YAML file */
-    this.context = yamljs.load(this.fullpath);
+    this.context = yamljs.load(this.cfgfile);
     /** Full path where the source documents are stored */
     this.sourcePath = path.resolve(this.cwdPath + '/' + (this.context['sourceDir'] ? this.context['sourceDir'] : 'docs'));
     /** Full path where output should be stored */
