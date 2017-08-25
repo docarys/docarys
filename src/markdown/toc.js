@@ -44,7 +44,7 @@ function exploreNode(node, levels) {
 function createNode(text, obj) {
     return {
         title: text,
-        href: "#" + utils.getSlug(text),
+        url: "#" + utils.getSlug(text),
         level: obj.level,
         children: []
     };

@@ -3,12 +3,13 @@
 
 var markdown = require("markdown").markdown;
 var linkFilter = require("../filters/linkFilter.js");
+var headerFilter = require("../filters/headerFilter.js");
 
 /** The responsible for text parsing */
 function Parser() {
 
     /** Filters applied to the documentTree */
-    this.filters = [new linkFilter()];
+    this.filters = [new linkFilter(), new headerFilter()];
 
     /** Takes an input string, parses and filters it, returning the result */
     this.parse = function(input) {
