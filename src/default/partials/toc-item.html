@@ -1,8 +1,0 @@
-<li><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
-<!-- Render nested item list -->
-</li>
-{% if toc_item.children %}
-    {% for toc_item in toc_item.children %} 
-    {% include "partials/toc-item.html" %} 
-    {% endfor %}
-{% endif %}

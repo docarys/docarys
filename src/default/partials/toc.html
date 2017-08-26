@@ -1,7 +1,0 @@
-{% if page.toc %}
-<div class="col hide-on-small-only m3 l2">
-    <ul class="section table-of-contents pinned">
-        {% for toc_item in page.toc.children %} {% include "partials/toc-item.html" %} {% endfor %}
-    </ul>
-</div>
-{% endif %}

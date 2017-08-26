@@ -12,7 +12,7 @@ describe('Configuration', function () {
         expect(cfg.context).toExist('No configuration has been loaded from YAML file');
         expect(cfg.sourcePath).toBe(path.resolve(__dirname + '/docs'));
         expect(cfg.targetPath).toBe(path.resolve(__dirname + '/build'));
-        expect(cfg.templatePath).toBe(cfg.modulePath + "/default");
+        expect(cfg.templatePath).toBe(cfg.modulePath + "/material");
     });
     it('Should load custom file and properties', function () {
         var cfg = new config('mydocs.custom.yml');

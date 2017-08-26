@@ -19,7 +19,7 @@ function SiteTree(config) {
             var key = Object.keys(pageCfg)[0];
             var title = key;
             var filename = pageCfg[key];
-            var templateFile = "docs.html"; // TODO This templateFile might come from page metadata
+            var templateFile = "main.html"; // TODO This templateFile might come from page metadata
             var page;
             if (Array.isArray(filename)) {
                 page = {
@@ -35,7 +35,7 @@ function SiteTree(config) {
                     targetPath: config.targetPath,
                     templatePath: config.templatePath,
                     parent: parentPage,
-                    children: []
+                    active: true
                 };
 
                 page.templateFile = page.templatePath + '/' + templateFile;
@@ -60,19 +60,31 @@ function SiteTree(config) {
         return parentPage;
     }
 
-    /** Build the previous and next items in pages, navigating the  SiteTree */
+    /** Build the navigation path for footer */
     function buildNavigationPath(pages, previous) {
+        if (!pages.children) {
+            return;
+        }
+
         for (var i = 0; i < pages.children.length; i++) {
             var page = pages.children[i];
             if (page.url && previous && previous.url) {
-                previous.next = page.url;
-                page.previous = previous.url;
+                previous.next_page = createNavPage(page);
+                page.previous_page = createNavPage(previous);
             }
             if (page.url) {
                 previous = page;
             }
 
             buildNavigationPath(page, previous);
+        }
+    }
+
+    /** Creates the navigation object */
+    function createNavPage(page) {
+        return {
+            title: page.title,
+            url: page.url
         }
     }
 

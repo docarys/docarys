@@ -4,7 +4,7 @@
 var utils = require("../utils.js");
 
 /** A TOC based on lib/markdown intermediate model structure */
-function MdToc(documentTree) {    
+function MdToc(documentTree) {
     return exploreTree(documentTree);
 }
 
@@ -28,7 +28,13 @@ function exploreNode(node, levels) {
         // In a header, node[2] contains the text, and node[1] contains an object with the information of the header        
         var newNode = createNode(node[2], node[1]);
         // We look for parent level
-        var parentLevel = levels[newNode.level - 1];
+        var parentLevel;
+        for (var level = newNode.level - 1; level >= 0; level--) {
+            parentLevel = levels[level];
+            if (parentLevel) {
+                break;
+            }
+        }
         // Checking if it is an array or a node (in almost all cases, there will be more than one item per level)
         var parent = Array.isArray(parentLevel) ? parentLevel[parentLevel.length - 1] : parentLevel;
         parent.children.push(newNode);
