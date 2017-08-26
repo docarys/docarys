@@ -35,7 +35,7 @@ function SiteTree(config) {
                     targetPath: config.targetPath,
                     templatePath: config.templatePath,
                     parent: parentPage,
-                    active: true
+                    active: false
                 };
 
                 page.templateFile = page.templatePath + '/' + templateFile;

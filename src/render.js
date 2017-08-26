@@ -36,6 +36,7 @@ function Render(config) {
 
     function renderSite (page, site) {
         if (page.url) { // Pages with no URL are SiteTree nodes grouping subitems, and should not be rendered
+            page.active = true; // Set page as active before render
             var ctx = {
                 config: config,
                 page: page,
@@ -44,6 +45,7 @@ function Render(config) {
             mkdirp.sync(path.dirname(page.targetFile));
             var html = nunjucks.render(page.templateFile, ctx);
             fs.writeFileSync(page.targetFile, html);
+            page.active = false; // Unset page as active after render
         }
 
         if (Array.isArray(page.children)) {
