@@ -1,10 +1,7 @@
 /*jslint node: true */
 "use strict";
 var expect = require("expect");
-var fs = require("fs");
-var markdown = require("markdown").markdown;
 var mdToc = require("../src/markdown/toc.js");
-
 
 describe("TOC", function () {
     it("Should create a TOC from a basic document tree", function() {
@@ -19,9 +16,7 @@ describe("TOC", function () {
                 + " This is second level again\n"
                 + "### H3 Again\n"
                 + "This is third level again";
-        var documentTree = markdown.parse(content);
-        var toc = new mdToc(documentTree);
-
+        var toc = mdToc(content);
         expect(toc).toExist();
         expect(toc.children.length).toBe(1); // Root
         expect(toc.children[0].children.length).toBe(2); // Root/H1
