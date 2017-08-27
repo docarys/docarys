@@ -1,36 +1,36 @@
 /*jslint node: true */
 "use strict";
 
-var markdown = require("markdown").markdown;
-var linkFilter = require("../filters/linkFilter.js");
-var headerFilter = require("../filters/headerFilter.js");
+var hljs = require("highlight.js");
+var markdown = require('markdown-it')({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (__) {}
+    }
+
+    return ''; // use external default escaping
+  }
+}).use(require('markdown-it-anchor'));
+
+require("./rules/rules.js")(markdown);
 
 /** The responsible for text parsing */
 function Parser() {
 
-    /** Filters applied to the documentTree */
-    this.filters = [new linkFilter(), new headerFilter()];
+  function render(input) {
+    return markdown.render(input);
+  }
 
-    /** Takes an input string, parses and filters it, returning the result */
-    this.parse = function(input) {
-        var documentTree = markdown.parse(input);
-        this.filters.forEach(function(filter){
-            filter.apply(documentTree);
-        });
+  function addRule(rule) {
+    rule(markdown);
+  }
 
-        return documentTree;
-    }
-
-    /** Converts a Document Tree to HTML */
-    this.toHtml = function(documentTree) {
-        return markdown.toHTML(documentTree);
-    }
-
-    return {
-        parse: this.parse,
-        toHtml: this.toHtml,
-        filters: this.filters
-    }
+  return {
+    render: render,
+    addRule: addRule
+  };
 }
 
 module.exports = Parser;

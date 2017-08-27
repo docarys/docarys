@@ -8,7 +8,7 @@ var siteTree = require("../src/siteTree.js");
 describe("SiteTree", function () {
     it("Should be created from configuration", function () {
         var cfg = new config("mydocs.pagetree.yml");
-        var tree = new siteTree(cfg);
+        var tree = siteTree(cfg);
         expect(tree).toExist();
     });
 });

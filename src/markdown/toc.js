@@ -1,10 +1,14 @@
 /*jslint node: true */
 "use strict";
 
+// TODO: Still use the old markdown library to build the TOC. Find a way to replace it with markdown-it
+
+var md = require("markdown").markdown;
 var utils = require("../utils.js");
 
 /** A TOC based on lib/markdown intermediate model structure */
-function MdToc(documentTree) {
+function MdToc(content) {
+    var documentTree = md.parse(content);
     return exploreTree(documentTree);
 }
 

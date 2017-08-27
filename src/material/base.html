@@ -58,6 +58,8 @@
       <link rel="stylesheet" href="{{ path }}">
     {% endfor %}
     {% block extrahead %}{% endblock %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   {% set palette = config.extra["palette"] %}
   {% set primary = palette.primary | replace(" ", "-") | lower %}
@@ -151,7 +153,7 @@
       {% endblock %}
     </div>
     {% block scripts %}
-      <script src="{{ base_url }}/assets/javascripts/application-6940329b9f.js"></script>
+      <script src="{{ base_url }}/assets/javascripts/application-7ce18e8418.js"></script>
       {% set languages = lang.t("search.languages").split(",") %}
       {% if languages | length and languages[0] != "" %}
         {% set path = base_url + "/assets/javascripts/lunr" %}

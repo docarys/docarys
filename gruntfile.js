@@ -1,30 +1,19 @@
+/*jslint node: true */
+"use strict";
+
 module.exports = function (grunt) {
-  grunt.initConfig ({
-    sass: {
+  grunt.initConfig({
+    uglify: {
       dist: {
         files: {
-          'src/default/css/materialize.css' : 'src/default/scss/materialize.scss'
+          'site/mydocs/js/lunr.min.js': ['node_modules/lunr/lunr.js'],
+          'site/mydocs/js/mustache.min.js': ['node_modules/mustache/mustache.js'],
+          'site/mydocs/js/search.min.js': ['src/search/search.js'],
         }
       }
-    },
-    cssmin: {
-      options: {
-        mergeIntoShorthands: false,
-        roundingPrecision: -1
-      },
-      target: {
-        files: [{
-          expand: true,
-          cwd: 'src/default/css',
-          src: ['*.css', '!*.min.css'],
-          dest: 'src/default/css',
-          ext: '.min.css'
-        }]
-      }
-    }  
+    }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.registerTask('default', ['sass', 'cssmin']);
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.registerTask('default', ['uglify']);
 }

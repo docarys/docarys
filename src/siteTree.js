@@ -9,6 +9,8 @@ var utils = require("./utils.js");
 
 function SiteTree(config) {
 
+    var parser = mdParser();
+
     /** Walk through all the documentation pages creating the SiteTree */
     function walk(config, pageCfg, parser, parentPage) {
         if (Array.isArray(pageCfg)) {
@@ -44,9 +46,8 @@ function SiteTree(config) {
                 page.url = utils.pathToUri(page.targetPath, page.targetFile);
                 var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
                 if (page.sourceFile.endsWith(".md")) {
-                    page.documentTree = parser.parse(sourceContent);
-                    page.content = parser.toHtml(page.documentTree);
-                    page.toc = new mdToc(page.documentTree);
+                    page.toc = mdToc(sourceContent); // TODO: Still use the old markdown library to build the TOC. Find a way to replace it with markdown-it
+                    page.content = parser.render(sourceContent);
                 } else {
                     page.content = sourceContent;
                 }
@@ -89,8 +90,7 @@ function SiteTree(config) {
     }
 
     /** Starts the SiteTree creation */
-    function buildSiteTree(config) {
-        var parser = new mdParser();
+    function buildSiteTree(config) {        
         var rootNode = {
             title: "root",
             children: []
