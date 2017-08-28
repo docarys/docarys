@@ -6,7 +6,7 @@ extra:
   feature:
     tabs: false
   palette:
-    primary: indigo
+    primary: lime
     accent: indigo
 pages:
   - Home: index.md
