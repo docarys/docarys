@@ -24,6 +24,7 @@ function Render(config) {
         renderSite(site, site);
     }
 
+    /** Copy all theme assets to output folder, except html files used as templates */
     function renderTheme (templatePath, targetPath) {
         var opts = {
             filter: function (filename) {
@@ -37,13 +38,14 @@ function Render(config) {
     function renderSite (page, site) {
         if (page.url) { // Pages with no URL are SiteTree nodes grouping subitems, and should not be rendered
             page.active = true; // Set page as active before render
-            var ctx = {
-                config: config,
+            var renderContext = {
+                config: config.context,
+                configExtra: config,
                 page: page,
                 nav: site
             };
             mkdirp.sync(path.dirname(page.targetFile));
-            var html = nunjucks.render(page.templateFile, ctx);
+            var html = nunjucks.render(page.templateFile, renderContext);
             fs.writeFileSync(page.targetFile, html);
             page.active = false; // Unset page as active after render
         }
