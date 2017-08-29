@@ -8,6 +8,7 @@ var path = require("path");
 var mkdirp = require("mkdirp");
 var nunjucks = require("nunjucks");
 var rimraf = require("rimraf");
+var search = require("./search.js");
 var siteTree = require("./siteTree.js");
 
 function Render(config) {
@@ -17,13 +18,15 @@ function Render(config) {
     });
 
     function render () {
-        var site = new siteTree(config);
+        var site = siteTree(config);
         console.info("Cleaning site directory");
         rimraf.sync(config.targetPath);
         console.info("Building documentation to directory: '" + config.targetPath + "'");
         renderTheme(config.templatePath, config.targetPath);
         renderContent(config.sourcePath, config.targetPath);
+        renderContent(config.modulePath + "/site", config.targetPath);
         renderSite(site, site);
+        createSarchIndex(site, config.targetPath);
     }
 
     /** Copy all theme assets to output folder, except html files used as templates */
@@ -45,6 +48,10 @@ function Render(config) {
         };
 
         fse.copySync(sourcePath, targetPath, opts, function () {});        
+    }
+
+    function createSarchIndex(site, targetPath) {
+        search(site, targetPath);
     }
 
     function renderSite (page, site) {

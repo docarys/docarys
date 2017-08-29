@@ -51,7 +51,7 @@ function SiteTree(config) {
                 page.edit_url = "https://www.github.com/sesispla/mydocs/edit";
                 var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
                 if (page.sourceFile.endsWith(".md")) {
-                    page.toc = mdToc(sourceContent); // TODO: Still use the old markdown library to build the TOC. Find a way to replace it with markdown-it
+                    page.toc = mdToc(sourceContent);
                     page.content = parser.render(sourceContent);
                     page.stats = readingTime(page.content);
                 } else {

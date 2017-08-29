@@ -1,6 +1,7 @@
 /*jslint node: true */
 "use strict";
 
+var removeMd = require("remove-markdown");
 var utils = require("../utils.js");
 
 function RegExToc(content) {
@@ -9,16 +10,31 @@ function RegExToc(content) {
 
     var levels = [];
 
-    levels[0] = createNode("root", {
-        level: 0
-    });
+    levels[0] = createNode("root");
 
     var matches = content.match(regexp);
 
     for (var i = 0; i < matches.length; i++) {
         var match = matches[i];
-        var node = createNode(match);
+        var nextMatch = i < match.length - 1 ? matches[i+1] : null;
+        // var sectionContent = getSectionContent(content, match, nextMatch);
+        var sectionContent = "TODO";
+        var node = createNode(match, sectionContent);
         setParent(node);
+    }
+
+    function getSectionContent(content, section, nextSection) {
+        var start = content.indexOf(section) + section.length;
+        var end;
+        if (nextSection) {
+            end  = content.indexOf(nextSection) - nextSection.length;
+        }
+        else {
+            end = content.length;
+        }
+
+        var length = end - start;
+        return content.substr(start, length);
     }
 
     function setParent(node) {
@@ -40,12 +56,17 @@ function RegExToc(content) {
     }
 
     /** Creates a new TOC node */
-    function createNode(text) {
+    function createNode(text, content) {
+        if (content) {
+            content = removeMd(content).toString("utf8");
+        }
+
         var level = (text.match(/#/g) || []).length;
         text = level > 0 ? text.substr(level + 1) : text;
         return {
             title: text,
             url: "#" + utils.getSlug(text),
+            content: content,
             level: level,
             children: []
         };
