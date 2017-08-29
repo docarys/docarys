@@ -1,0 +1,13 @@
+sudo: false
+language: node_js
+node_js:
+- '7'
+after_success:
+- npm run codacy-cover
+deploy:
+  on:
+    tags: true
+  provider: npm
+  email: sesispla@outlook.com
+  api_key:
+    secure: ybZN7BMC8LnAiu6pA9xPEyJekX61Km2UAikmc0+MAL4vpp3QnyUfFuh0FP0C4gBgiwIUeOkJ42X3d4d7pADoPQIZPdGZQTeoMObBhVckVd4eS+3uQzWrfi96X1Nt5wfEk3uTqo8wHYfbO4L69969+pC7RBZx0Ie7MOWjY1hSZrbJJt5a8eq2tIidtgA0ngIJ8eVfn09quS8LUsbkTN2dT9/4kA99m/vuLRSaHuNPwz9KZXDienBwV8mpgfDtpuj8MJVrHYW6dZywhBcpqE+nvdlD8xErU2HDHBrPfX3S/naDqFq4cbW8CmA0cmKKbToqGJPmmTnw5GKEqIegIF7UIxM958rY3xfKiXBFgFMo14Qq2Q/iMs3uN3egKmQeOkgWTsd/HYD3mAKEUcQl3/NaQ+G6EhZRVKg7DOMR01TX9fOWJkzLCc1kNZHaXzhEWrQXfTmBeWw0m0WvWKSOLKJ3y8gNyVYfyD92L9EBkI+d5SNYofGMM7N/VLayNDhlTCkTrhb0C0/XgJnMvbRpILeHmcuN3iKP24mtT5wdibaP2rtCkKfge27U6/6UWx+Zu83gNMGPb3KDdl/f5k7ZakS5Q3SbnycUBOQUqAbMNEEG0rsPSuzzdoXSipg1H4tEYxlPGzd1wUUBBqNLOAfeLYu6uHNJzpZ643tnhwMcTochj8Y=

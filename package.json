@@ -31,6 +31,7 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "codacy-coverage": "^2.0.2",
     "expect": "^1.20.2",
     "grunt": "^1.0.1",
     "grunt-contrib-uglify": "^3.0.1",
@@ -45,7 +46,8 @@
   },
   "scripts": {
     "test": "mocha ./test/*.test.js ./test/**/*.test.js",
-    "cover": "istanbul cover _mocha ./test/*.test.js ./src/**/*.test.js"
+    "cover": "istanbul cover _mocha ./test/*.test.js ./src/**/*.test.js",
+    "codacy-cover": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage"
   },
   "repository": {
     "type": "git",
