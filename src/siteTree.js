@@ -27,7 +27,8 @@ function SiteTree(config) {
             if (Array.isArray(filename)) {
                 page = {
                     title: title,
-                    children: []
+                    children: [],
+                    ancestors: []
                 };
 
                 walk(config, filename, parser, page);
@@ -37,10 +38,12 @@ function SiteTree(config) {
                     sourcePath: config.sourcePath,
                     targetPath: config.targetPath,
                     templatePath: config.templatePath,
-                    parent: parentPage,
+                    ancestors: parentPage.ancestors ? parentPage.ancestors.slice() : [],
                     active: false
                 };
-
+                if (parentPage.title != "root") {
+                    page.ancestors.push(parentPage);
+                }
                 page.templateFile = page.templatePath + '/' + templateFile;
                 page.sourceFile = path.resolve(page.sourcePath + "/" + filename);
                 page.targetFile = path.resolve(page.targetPath + "/" + filename.replace(".md", ".html"));
