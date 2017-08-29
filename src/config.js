@@ -38,7 +38,7 @@ function Config(filename) {
             var theme = context["theme"] ? context["theme"] : "docarys-material";
             var themePath = getInstalledPath.sync(theme) + "/build";
             if (!fs.existsSync(themePath)) {
-                console.log(chalk.red("Theme not found. Please install it: npm install -g " + theme));
+                console.log(chalk.red("Theme not found in '" + themePath + "'. Please install it: npm install -g " + theme));
                 process.exit(-1);
             }
 
