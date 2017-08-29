@@ -3,7 +3,7 @@
 
 var fs = require("fs");
 var mdParser = require("./markdown/parser.js");
-var mdToc = require("./markdown/toc.js");
+var mdToc = require("./markdown/toc-regex.js");
 var path = require("path");
 var readingTime = require('reading-time');
 var utils = require("./utils.js");
