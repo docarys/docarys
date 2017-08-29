@@ -10,6 +10,7 @@ const fileContributorsCmd = "git log --all --format='{ \"user\": \"%aN\", \"emai
 const fileLastCommitDateCmd = "git log -1 --format=%ci $fileName";
 const hashShortCmd = "git log --pretty=format:'%h' -n 1";
 const hashCmd = "git log --pretty=format:'%H' -n 1";
+const currentBranchCmd = "git rev-parse --abbrev-ref HEAD";
 
 function git() {
 
@@ -50,17 +51,19 @@ function git() {
             // Hash
             var hash = gitCommand(hashCmd, cwd);
             var shortHash = gitCommand(hashShortCmd, cwd);
+            var currentBranch = gitCommand(currentBranchCmd, cwd);
             return {
+                branch: currentBranch,
                 contributors: contributors,
                 hash: hash,
-                shortHash: shortHash
+                shortHash: shortHash                
             };
         },
         file: function(file, cwd) {
             if (!cwd) {
                 cwd = __dirname;
             }
-            // Contributors      
+            // Contributors
             var cmd = fileContributorsCmd.replace("$fileName", file);
             var contributors = parse(gitCommand(cmd, cwd));
             addGravatar(contributors);
