@@ -4,7 +4,7 @@
 var config = require("./config.js");
 var render = require("./render.js");
 
-var cfg = new config();
+var cfg = config();
 console.info("Building documentation...");
-var r = new render(cfg);
+var r = render(cfg);
 r.render();

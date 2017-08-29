@@ -6,7 +6,6 @@ var liveServer = require("live-server");
 var path = require("path");
 
 function LiveServer(config) {
-    this.config = config;
     var params = {
         port: 5000, // Set the server port. Defaults to 5000.
         host: "0.0.0.0", // Set the address to bind to. Defaults to 0.0.0.0 or process.env.IP.
