@@ -1,6 +1,6 @@
 {
   "name": "docarys",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Yet another static web site utility for technical documentation",
   "main": "src/index.js",
   "bin": {
