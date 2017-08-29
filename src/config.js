@@ -5,6 +5,7 @@ var chalk = require("chalk");
 var fs = require("fs");
 var path = require('path');
 var yamljs = require('yamljs');
+var getInstalledPath = require("get-installed-path");
 
 function Config(filename) {
     /** Filename to use */
@@ -16,7 +17,7 @@ function Config(filename) {
     /** Full path to the config file, starting from current dir */
     var cfgfile = path.resolve(cwdPath + '/' + filename);
     if (!fs.existsSync(cfgfile)) {
-        console.error(chalk.red("Config file '" + cfgfile +"' does not exist.'"));
+        console.error(chalk.red("Config file '" + cfgfile + "' does not exist.'"));
         process.exit(-1);
     }
     /** Variable context, resulting from the load of the YAML file */
@@ -28,10 +29,22 @@ function Config(filename) {
     /** Template full path. 
      * By default, it uses the built-in "default". 
      * If "theme_dir" is specified, it looks at cwd  */
-    var templatePath = context['theme_dir']
-        ? path.resolve(cwdPath + '/' + context['theme_dir']) // Custom path specified by config
-        : path.resolve(modulePath + "/" + "material"); // Default built-in theme in the module
-    
+    var templatePath = resolveTheme();
+
+    function resolveTheme() {
+        if (context["theme_dir"]) {
+            return path.resolve(cwdPath + '/' + context['theme_dir']) // Custom path specified by config
+        } else {
+            var theme = context["theme"] ? context["theme"] : "mydocs-material";
+            var themePath = getInstalledPath.sync(theme) + "/build";
+            if (!fs.existsSync(themePath)) {
+                console.log(chalk.red("Theme not found. Please install it: npm install -g " + theme));
+                process.exit(-1);
+            }
+
+            return themePath;
+        }
+    }
 
     return {
         /** Configuration context */

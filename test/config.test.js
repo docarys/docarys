@@ -4,6 +4,7 @@
 var config = require('../src/config.js');
 var expect = require('expect');
 var path = require('path');
+var getInstalledPath = require("get-installed-path");
 
 describe('Configuration', function () {
     it('Should load default file', function () {
@@ -12,7 +13,8 @@ describe('Configuration', function () {
         expect(cfg.context).toExist('No configuration has been loaded from YAML file');
         expect(cfg.sourcePath).toBe(path.resolve(__dirname + '/docs'));
         expect(cfg.targetPath).toBe(path.resolve(__dirname + '/build'));
-        expect(cfg.templatePath).toBe(cfg.modulePath + "/material");
+        expect(cfg.templatePath).toBe(getInstalledPath.sync("mydocs-material") + "/build");
+        expect(cfg.templatePath).toNotContain("undefined");
     });
     it('Should load custom file and properties', function () {
         var cfg = new config('mydocs.custom.yml');
