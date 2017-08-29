@@ -2,17 +2,9 @@
 "use strict";
 
 var hljs = require("highlight.js");
-var markdown = require('markdown-it')({
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(lang, str).value;
-      } catch (__) {}
-    }
-
-    return ''; // use external default escaping
-  }
-}).use(require('markdown-it-anchor'));
+var markdown = require('markdown-it')()
+  .use(require('markdown-it-anchor'))
+  .use(require('markdown-it-highlightjs'), {auto: true});
 
 require("./rules/rules.js")(markdown);
 
