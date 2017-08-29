@@ -24,7 +24,7 @@ function Render(config) {
         console.info("Building documentation to directory: '" + config.targetPath + "'");
         renderTheme(config.templatePath, config.targetPath);
         renderContent(config.sourcePath, config.targetPath);
-        renderContent(config.modulePath + "/site", config.targetPath);
+        renderContent(path.join(config.modulePath, "site"), config.targetPath);
         renderSite(site, site);
         createSarchIndex(site, config.targetPath);
     }

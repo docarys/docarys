@@ -2,6 +2,7 @@
 "use strict";
 
 var fs = require("fs");
+var path = require("path");
 
 function SearchIndex(rootPage, targetPath) {
 
@@ -36,7 +37,7 @@ function SearchIndex(rootPage, targetPath) {
     }
 
     createIndex(rootPage);
-    var targetFile = targetPath + "/docarys/search_index.json";
+    var targetFile = path.join(targetPath, "docarys", "search_index.json");
     var fileContent = JSON.stringify({docs: index});
     fs.writeFileSync(targetFile, fileContent, "utf-8");
 }

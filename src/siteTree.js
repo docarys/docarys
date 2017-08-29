@@ -44,9 +44,9 @@ function SiteTree(config) {
                 if (parentPage.title != "root") {
                     page.ancestors.push(parentPage);
                 }
-                page.templateFile = page.templatePath + '/' + templateFile;
-                page.sourceFile = path.resolve(page.sourcePath + "/" + filename);
-                page.targetFile = path.resolve(page.targetPath + "/" + filename.replace(".md", ".html"));
+                page.templateFile = path.join(page.templatePath, templateFile);
+                page.sourceFile = path.resolve(path.join(page.sourcePath, filename));
+                page.targetFile = path.resolve(path.join(page.targetPath, filename.replace(".md", ".html")));
                 page.url = utils.pathToUri(page.targetPath, page.targetFile);
                 page.edit_url = "https://www.github.com/docarys/docarys/edit"; // TODO Pending to remove this hardcode!
                 var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
