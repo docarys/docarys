@@ -50,6 +50,7 @@ function Render(config) {
     function renderSite (page, site) {
         if (page.url) { // Pages with no URL are SiteTree nodes grouping subitems, and should not be rendered
             page.active = true; // Set page as active before render
+            var gitFolder = git.project(config.cwdPath);
             var gitFile = git.file(page.sourceFile, config.cwdPath);
             var renderContext = {
                 config: config.context,
@@ -57,7 +58,8 @@ function Render(config) {
                 page: page,
                 nav: site,
                 git: {
-                    hash: gitFile.hash,
+                    branch: gitFolder.branch,
+                    hash: gitFolder.hash,
                     contributors: gitFile.contributors
                 }
             };
