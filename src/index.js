@@ -19,5 +19,5 @@ program.version(pkg.version)
     .parse(process.argv);
 
 if (program.verbose) {
-    console.log("Not supported yet!. mydocs is always in verbose mode");
+    console.log("Not supported yet!. docarys is always in verbose mode");
 }

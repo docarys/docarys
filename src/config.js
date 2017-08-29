@@ -9,7 +9,7 @@ var getInstalledPath = require("get-installed-path");
 
 function Config(filename) {
     /** Filename to use */
-    filename = filename ? filename : 'mydocs.yml';
+    filename = filename ? filename : 'docarys.yml';
     /** Running path */
     var cwdPath = process.cwd();
     /** Module path */
@@ -35,7 +35,7 @@ function Config(filename) {
         if (context["theme_dir"]) {
             return path.resolve(cwdPath + '/' + context['theme_dir']) // Custom path specified by config
         } else {
-            var theme = context["theme"] ? context["theme"] : "mydocs-material";
+            var theme = context["theme"] ? context["theme"] : "docarys-material";
             var themePath = getInstalledPath.sync(theme) + "/build";
             if (!fs.existsSync(themePath)) {
                 console.log(chalk.red("Theme not found. Please install it: npm install -g " + theme));

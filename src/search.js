@@ -36,7 +36,7 @@ function SearchIndex(rootPage, targetPath) {
     }
 
     createIndex(rootPage);
-    var targetFile = targetPath + "/mydocs/search_index.json";
+    var targetFile = targetPath + "/docarys/search_index.json";
     var fileContent = JSON.stringify({docs: index});
     fs.writeFileSync(targetFile, fileContent, "utf-8");
 }

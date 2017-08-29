@@ -1,6 +1,6 @@
 require([
-    base_url + '/mydocs/js/mustache.min.js',
-    base_url + '/mydocs/js/lunr.min.js',
+    base_url + '/docarys/js/mustache.min.js',
+    base_url + '/docarys/js/lunr.min.js',
     'text!search-results-template.mustache',
     'text!../search_index.json',
 ], function (Mustache, lunr, results_template, data) {

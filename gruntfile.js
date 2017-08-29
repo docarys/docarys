@@ -6,9 +6,9 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          'site/mydocs/js/lunr.min.js': ['node_modules/lunr/lunr.js'],
-          'site/mydocs/js/mustache.min.js': ['node_modules/mustache/mustache.js'],
-          'site/mydocs/js/search.min.js': ['src/search/search.js'],
+          'site/docarys/js/lunr.min.js': ['node_modules/lunr/lunr.js'],
+          'site/docarys/js/mustache.min.js': ['node_modules/mustache/mustache.js'],
+          'site/docarys/js/search.min.js': ['src/search/search.js'],
         }
       }
     }

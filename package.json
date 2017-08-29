@@ -1,10 +1,10 @@
 {
-  "name": "mydocs",
+  "name": "docarys",
   "version": "0.1.0",
   "description": "Yet another static web site utility for technical documentation",
   "main": "src/index.js",
   "bin": {
-    "mydocs": "src/index.js"
+    "docarys": "src/index.js"
   },
   "files": [
     "src"
@@ -49,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sesispla/mydocs.git"
+    "url": "git+https://github.com/docarys/docarys.git"
   },
   "keywords": [
     "markdown",
@@ -59,7 +59,7 @@
   "author": "sesispla <sesispla@outlook.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sesispla/mydocs/issues"
+    "url": "https://github.com/docarys/docarys/issues"
   },
-  "homepage": "https://github.com/sesispla/mydocs#readme"
+  "homepage": "https://www.docarys.io"
 }
