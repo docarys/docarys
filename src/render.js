@@ -3,6 +3,7 @@
 
 var fs = require("fs");
 var fse = require("fs-extra");
+var git = require("./git.js")();
 var path = require("path");
 var mkdirp = require("mkdirp");
 var nunjucks = require("nunjucks");
@@ -38,11 +39,16 @@ function Render(config) {
     function renderSite (page, site) {
         if (page.url) { // Pages with no URL are SiteTree nodes grouping subitems, and should not be rendered
             page.active = true; // Set page as active before render
+            var gitFile = git.file(page.sourceFile, config.cwdPath);
             var renderContext = {
                 config: config.context,
                 configExtra: config,
                 page: page,
-                nav: site
+                nav: site,
+                git: {
+                    hash: gitFile.hash,
+                    contributors: gitFile.contributors
+                }
             };
             mkdirp.sync(path.dirname(page.targetFile));
             var html = nunjucks.render(page.templateFile, renderContext);

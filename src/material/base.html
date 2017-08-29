@@ -39,7 +39,7 @@
       <script src="{{ base_url }}/assets/javascripts/modernizr-1df76c4e58.js"></script>
     {% endblock %}
     {% block styles %}
-      <link rel="stylesheet" href="{{ base_url }}/assets/stylesheets/application-bfecc7305d.css">
+      <link rel="stylesheet" href="{{ base_url }}/assets/stylesheets/application-fb7511346b.css">
       {% if config.extra.palette %}
         <link rel="stylesheet" href="{{ base_url }}/assets/stylesheets/application-02c2a4388f.palette.css">
       {% endif %}
@@ -123,8 +123,9 @@
                   <a href="{{ page.edit_url }}" title="{{ lang.t('edit.link.title') }}" class="md-icon md-content__icon">edit</a>
                 {% endif %}
                 {% if not "\x3ch1" in page.content %}
-                  <h1>{{ page.title | default(config.site_name, true)}}</h1>
+                  <h1 style="margin-bottom:0">{{ page.title | default(config.site_name, true)}}</h1>
                 {% endif %}
+                {% include "partials/metadata.html" %}
                 {{ page.content }}
                 {% block source %}
                   {% if page.meta.source %}

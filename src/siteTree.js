@@ -5,6 +5,7 @@ var fs = require("fs");
 var mdParser = require("./markdown/parser.js");
 var mdToc = require("./markdown/toc.js");
 var path = require("path");
+var readingTime = require('reading-time');
 var utils = require("./utils.js");
 
 function SiteTree(config) {
@@ -44,10 +45,12 @@ function SiteTree(config) {
                 page.sourceFile = path.resolve(page.sourcePath + "/" + filename);
                 page.targetFile = path.resolve(page.targetPath + "/" + filename.replace(".md", ".html"));
                 page.url = utils.pathToUri(page.targetPath, page.targetFile);
+                page.edit_url = "https://www.github.com/sesispla/mydocs/edit";
                 var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
                 if (page.sourceFile.endsWith(".md")) {
                     page.toc = mdToc(sourceContent); // TODO: Still use the old markdown library to build the TOC. Find a way to replace it with markdown-it
                     page.content = parser.render(sourceContent);
+                    page.stats = readingTime(page.content);
                 } else {
                     page.content = sourceContent;
                 }
