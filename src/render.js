@@ -22,6 +22,7 @@ function Render(config) {
         rimraf.sync(config.targetPath);
         console.info("Building documentation to directory: '" + config.targetPath + "'");
         renderTheme(config.templatePath, config.targetPath);
+        renderContent(config.sourcePath, config.targetPath);
         renderSite(site, site);
     }
 
@@ -34,6 +35,16 @@ function Render(config) {
         };
 
         fse.copySync(templatePath, targetPath, opts, function () {});
+    }
+
+    function renderContent(sourcePath, targetPath) {
+        var opts = {
+            filter: function (filename) {
+                return !filename.endsWith('.md');
+            }
+        };
+
+        fse.copySync(sourcePath, targetPath, opts, function () {});        
     }
 
     function renderSite (page, site) {
