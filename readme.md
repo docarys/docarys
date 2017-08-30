@@ -27,7 +27,16 @@ Based in concepts from mkdocs, hard-forked from mkdocs-material, inspired by Mic
 Install with `npm`:
 
 ``` sh
-npm install -g docarys docarys-material
+npm install -g docarys docarys-material generator-docarys
+```
+
+To create a new project:
+``` sh
+mkdir myproject
+cd myproject
+yo docarys
+... (Follow the setup)
+docarys serve
 ```
 
 More details coming soon.

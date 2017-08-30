@@ -48,7 +48,7 @@ function SiteTree(config) {
                 page.sourceFile = path.resolve(path.join(page.sourcePath, filename));
                 page.targetFile = path.resolve(path.join(page.targetPath, filename.replace(".md", ".html")));
                 page.url = utils.pathToUri(page.targetPath, page.targetFile);
-                page.edit_url = "https://www.github.com/docarys/docarys/edit"; // TODO Pending to remove this hardcode!
+                // page.edit_url = "https://www.github.com/docarys/docarys/edit"; // TODO Pending to remove this hardcode!
                 var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
                 if (page.sourceFile.endsWith(".md")) {
                     page.toc = mdToc(sourceContent);
