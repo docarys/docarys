@@ -16,7 +16,7 @@
 
 [docarys](http://www.docarys.io) is yet a static site generator. Simple. Flexible. Customizable. Period. 
 
-docarys is as magic as a dragon spiting fire 🐉 🔥
+docarys is as magic as a dragon spitting fire 🐉 🔥
 
 [![Material for docarys](docs/material.png)](https://github.com/docarys/docarys-material)
 
