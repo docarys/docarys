@@ -41,6 +41,14 @@ function git() {
     }
 
     return {
+        initialized: function(cwd) {
+            try {
+                gitCommand(hashCmd, cwd);
+                return true;
+            } catch(e) {
+                return false;
+            }
+        },        
         project: function(cwd) {
             if (!cwd) {
                 cwd = __dirname;

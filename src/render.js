@@ -57,19 +57,21 @@ function Render(config) {
     function renderSite (page, site) {
         if (page.url) { // Pages with no URL are SiteTree nodes grouping subitems, and should not be rendered
             page.active = true; // Set page as active before render
-            var gitFolder = git.project(config.cwdPath);
-            var gitFile = git.file(page.sourceFile, config.cwdPath);
             var renderContext = {
                 config: config.context,
                 configExtra: config,
                 page: page,
-                nav: site,
-                git: {
+                nav: site
+            };
+            if (config.enableGit && git.initialized(config.cwdPath)) {
+                var gitFolder = git.project(config.cwdPath);
+                var gitFile = git.file(page.sourceFile, config.cwdPath);
+                renderContext.git = {
                     branch: gitFolder.branch,
                     hash: gitFolder.hash,
                     contributors: gitFile.contributors
                 }
-            };
+            }
             mkdirp.sync(path.dirname(page.targetFile));
             var html = nunjucks.render(page.templateFile, renderContext);
             fs.writeFileSync(page.targetFile, html);
