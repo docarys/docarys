@@ -2,7 +2,9 @@
 "use strict";
 
 var dpage = require("./page.js");
+var fs = require("fs");
 var mdParser = require("./markdown/parser.js");
+var path = require("path");
 
 function SiteTree(config) {
 
@@ -10,10 +12,10 @@ function SiteTree(config) {
 
     /**
      * Walk through all the documentation pages creating the SiteTree 
-     * @config Global docarys configuration class
-     * @pageTree The page tree to walk through
-     * @parser Content parser instance, created to parse the page content while walking
-     * @parentPage The parent page whose new pages should be linked against
+     * @param {*} config Global docarys configuration class
+     * @param {*} pageTree The page tree to walk through
+     * @param {*} parser Content parser instance, created to parse the page content while walking
+     * @param {*} parentPage The parent page whose new pages should be linked against
      * */
     function walk(config, pageTree, parser, parentPage) {
         if (Array.isArray(pageTree)) {
@@ -51,8 +53,8 @@ function SiteTree(config) {
 
     /**
      * Build the navigation path for footer
-     * @pages The pages to walk through, creating the precedense
-     * @previous Previous page to current walkthrough
+     * @param {*} pages The pages to walk through, creating the precedense
+     * @param {*} previous Previous page to current walkthrough
      * */
     function buildNavigationPath(pages, previous) {
         if (!pages.children) {
@@ -75,7 +77,7 @@ function SiteTree(config) {
 
     /** 
      * Creates the navigation object
-     * @page Page object we need to create the nav page from
+     * @param {page} page Page object we need to create the nav page from
      * */
     function createNavPage(page) {
         return {
@@ -84,16 +86,53 @@ function SiteTree(config) {
         };
     }
 
+    /**
+     * 
+     * @param {string} sourcePath Path where source files are stored
+     */
+    function buildPagesFromFs(sourcePath, basePath, pages) {
+        if (!basePath) {
+            basePath = sourcePath;
+        }
+
+        if (!pages) {
+            pages = [];
+        }
+
+        var files = fs.readdirSync(sourcePath);
+        for (var i in files) {
+            var file = files[i];
+            var fullpath = path.join(sourcePath, file);
+            var basePathIndex = basePath.length + 1;
+            var relativePath = fullpath.substr(basePathIndex, fullpath.length - basePathIndex);
+            var node = {};
+            if (fs.statSync(fullpath).isDirectory()) {
+                node = {};
+                node[file] = [];
+                buildPagesFromFs(fullpath, basePath, node[file]);
+                pages.push(node);
+            }
+            else {
+                var name = file.substr(0, file.lastIndexOf('.'));
+                node[name] = relativePath;
+                pages.push(node);
+            }
+        }
+        return pages;
+    }
+
     /** 
      * Creates the site tree, using the given configuration
-     * @config docarys configuration object
+     * @param {*} config docarys configuration object
      * */
-    function buildSiteTree(config) { 
+    function buildSiteTree(config) {
         var rootNode = {
             title: "root",
             children: []
         };
-        walk(config, config.context.pages, parser, rootNode);
+
+        var pages = config.context.pages ? config.context.pages : buildPagesFromFs(config.sourcePath);
+        walk(config, pages, parser, rootNode);
         buildNavigationPath(rootNode);
         return rootNode;
     }
