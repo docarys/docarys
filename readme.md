@@ -14,7 +14,7 @@
 
 # docarys
 
-[docarys](http://www.docarys.io) is yet a static site generator. Simple. Flexible. Customizable. Period. 
+[docarys](http://www.docarys.io) is yet another static site generator. Simple. Flexible. Customizable. Period. 
 
 docarys is as magic as a dragon spitting fire 🐉 🔥
 
