@@ -1,28 +1,29 @@
 /*jslint node: true */
 "use strict";
 
-var fs = require("fs");
+var dpage = require("./page.js");
 var mdParser = require("./markdown/parser.js");
-var mdToc = require("./markdown/toc-regex.js");
-var path = require("path");
-var readingTime = require('reading-time');
-var utils = require("./utils.js");
 
 function SiteTree(config) {
 
     var parser = mdParser();
 
-    /** Walk through all the documentation pages creating the SiteTree */
-    function walk(config, pageCfg, parser, parentPage) {
-        if (Array.isArray(pageCfg)) {
-            pageCfg.forEach(function (p) {
+    /**
+     * Walk through all the documentation pages creating the SiteTree 
+     * @config Global docarys configuration class
+     * @pageTree The page tree to walk through
+     * @parser Content parser instance, created to parse the page content while walking
+     * @parentPage The parent page whose new pages should be linked against
+     * */
+    function walk(config, pageTree, parser, parentPage) {
+        if (Array.isArray(pageTree)) {
+            pageTree.forEach(function (p) {
                 walk(config, p, parser, parentPage);
             });
         } else {
-            var key = Object.keys(pageCfg)[0];
+            var key = Object.keys(pageTree)[0];
             var title = key;
-            var filename = pageCfg[key];
-            var templateFile = "main.html"; // TODO This templateFile might come from page metadata
+            var filename = pageTree[key];
             var page;
             if (Array.isArray(filename)) {
                 page = {
@@ -33,29 +34,10 @@ function SiteTree(config) {
 
                 walk(config, filename, parser, page);
             } else {
-                page = {
-                    title: title,
-                    sourcePath: config.sourcePath,
-                    targetPath: config.targetPath,
-                    templatePath: config.templatePath,
-                    ancestors: parentPage.ancestors ? parentPage.ancestors.slice() : [],
-                    active: false
-                };
+                page = dpage(title, filename, config, parser);
+                page.ancestors = parentPage.ancestors ? parentPage.ancestors.slice() : [];
                 if (parentPage.title != "root") {
                     page.ancestors.push(parentPage);
-                }
-                page.templateFile = path.join(page.templatePath, templateFile);
-                page.sourceFile = path.resolve(path.join(page.sourcePath, filename));
-                page.targetFile = path.resolve(path.join(page.targetPath, filename.replace(".md", ".html")));
-                page.url = utils.pathToUri(page.targetPath, page.targetFile);
-                // page.edit_url = "https://www.github.com/docarys/docarys/edit"; // TODO Pending to remove this hardcode!
-                var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
-                if (page.sourceFile.endsWith(".md")) {
-                    page.toc = mdToc(sourceContent);
-                    page.content = parser.render(sourceContent);
-                    page.stats = readingTime(page.content);
-                } else {
-                    page.content = sourceContent;
                 }
             }
 
@@ -67,7 +49,11 @@ function SiteTree(config) {
         return parentPage;
     }
 
-    /** Build the navigation path for footer */
+    /**
+     * Build the navigation path for footer
+     * @pages The pages to walk through, creating the precedense
+     * @previous Previous page to current walkthrough
+     * */
     function buildNavigationPath(pages, previous) {
         if (!pages.children) {
             return;
@@ -87,16 +73,22 @@ function SiteTree(config) {
         }
     }
 
-    /** Creates the navigation object */
+    /** 
+     * Creates the navigation object
+     * @page Page object we need to create the nav page from
+     * */
     function createNavPage(page) {
         return {
             title: page.title,
             url: page.url
-        }
+        };
     }
 
-    /** Starts the SiteTree creation */
-    function buildSiteTree(config) {        
+    /** 
+     * Creates the site tree, using the given configuration
+     * @config docarys configuration object
+     * */
+    function buildSiteTree(config) { 
         var rootNode = {
             title: "root",
             children: []
