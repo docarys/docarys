@@ -3,6 +3,8 @@
 
 var config = require("../src/config.js");
 var expect = require("expect");
+var fse = require("fs-extra");
+var path = require("path");
 var siteTree = require("../src/siteTree.js");
 
 describe("SiteTree", function () {
@@ -15,6 +17,8 @@ describe("SiteTree", function () {
     it("Should create a site tree from folder structure, if no pages specified in configuration", function () {
         var cfg = config("docarys.notree.yml");
         var tree = siteTree(cfg);
+        var emptyFolder = path.join(cfg.sourcePath, "empty");
+        fse.emptyDirSync(emptyFolder);
         expect(tree).toExist();
         expect(tree.children).toExist();
         expect(tree.children.length).toBe(3);
@@ -23,6 +27,6 @@ describe("SiteTree", function () {
         expect(tree.children[2].children.length).toBe(2);
         expect(tree.children[2].children[0].title).toBe("index");
         expect(tree.children[2].children[1].title).toBe("other");
-    });    
+    });
 });
 
