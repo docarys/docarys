@@ -22,14 +22,14 @@ function Page(title, filename, config, parser) {
     page = {
         active: false,
         ancestors: [],
-        content: null,
-        title: title,
+        content: null,        
         sourcePath: config.sourcePath,
         sourceFile: path.resolve(path.join(config.sourcePath, filename)),
         targetPath: config.targetPath,
         targetFile: targetFile,
         templatePath: config.templatePath,
-        templateFile: path.join(config.templatePath, templateFile),        
+        templateFile: path.join(config.templatePath, templateFile),
+        title: title,
         url: utils.pathToUri(config.targetPath, targetFile)
     };
 
