@@ -84,9 +84,6 @@ function RegExToc(content) {
     //     return content.substr(start, length);
     // }
 
-    /** Header sorted by levels (H1, H2, H3...) */
-    var levels = [];
-
     levels[0] = [createNode("root")];
 
     var matches = content.match(regexp);
