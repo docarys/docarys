@@ -3,8 +3,6 @@
 
 var config = require("../src/config.js");
 var expect = require("expect");
-var fse = require("fs-extra");
-var path = require("path");
 var siteTree = require("../src/siteTree.js");
 
 describe("SiteTree", function () {
