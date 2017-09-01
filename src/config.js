@@ -26,13 +26,6 @@ function Config(filename) {
     var sourcePath = path.resolve(path.join(cwdPath, (context['sourceDir'] ? context['sourceDir'] : 'docs')));
     /** Full path where output should be stored */
     var targetPath = path.resolve(path.join(cwdPath, (context['targetDir'] ? context['targetDir'] : 'build')));
-    /** Template full path. 
-     * By default, it uses the built-in "default". 
-     * If "theme_dir" is specified, it looks at cwd  */
-    var templatePath = resolveTheme();
-
-    /** Checks if is possible to enable Git extensions */
-    var enableGit = fs.existsSync(path.join(cwdPath, ".git"));
 
     function resolveTheme() {
         if (context["theme_dir"]) {
@@ -48,6 +41,14 @@ function Config(filename) {
             return themePath;
         }
     }
+
+    /** Template full path. 
+     * By default, it uses the built-in "default". 
+     * If "theme_dir" is specified, it looks at cwd  */
+    var templatePath = resolveTheme();
+
+    /** Checks if is possible to enable Git extensions */
+    var enableGit = fs.existsSync(path.join(cwdPath, ".git"));
 
     return {
         /** Configuration context */

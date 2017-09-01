@@ -48,6 +48,26 @@ function SiteTree(config) {
     }
 
     /**
+     * Creates the navigation object
+     * @param {page} page Page object we need to create the nav page from
+     * */
+    function createNavPage(page) {
+        return {
+            title: page.title,
+            url: page.url,
+            active: false,
+            setActive: function (active) {
+                this.active = active;
+                if (page.ancestors && Array.isArray(page.ancestors)) {
+                    for (var i in page.ancestors) {
+                        page.ancestors[i].setPage(active);
+                    }
+                }
+            }
+        };
+    }    
+
+    /**
      * Build the navigation path for footer
      * @param {*} pages The pages to walk through, creating the precedense
      * @param {*} previous Previous page to current walkthrough
@@ -71,28 +91,8 @@ function SiteTree(config) {
         }
     }
 
-    /** 
-     * Creates the navigation object
-     * @param {page} page Page object we need to create the nav page from
-     * */
-    function createNavPage(page) {
-        return {
-            title: page.title,
-            url: page.url,
-            active: false,
-            setActive: function (active) {
-                this.active = active;
-                if (page.ancestors && Array.isArray(page.ancestors)) {
-                    for (var i in page.ancestors) {
-                        page.ancestors[i].setPage(active);
-                    }
-                }
-            }
-        };
-    }
-
     /**
-     * 
+     * Creates a site tree structure using the current files present at the file system
      * @param {string} sourcePath Path where source files are stored
      */
     function buildPagesFromFs(sourcePath, basePath, pages) {

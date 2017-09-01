@@ -4,10 +4,22 @@
 var fs = require("fs");
 var path = require("path");
 
+/**
+ * Create the search index file
+ * @param {*} rootPage Site Root Page node
+ * @param {*} targetPath Path where the index should be stored
+ */
 function SearchIndex(rootPage, targetPath) {
-
+    
+    /** Index content */
     var index = [];
 
+    /**
+     * Creates a new entry in the index
+     * @param {*} title Title of the index
+     * @param {*} text Text of the index
+     * @param {*} location URL where the content can be found
+     */
     function addEntry(title, text, location) {
         index.push({
             "title": title,
@@ -16,29 +28,55 @@ function SearchIndex(rootPage, targetPath) {
         });
     }
 
-    function createIndex(page) {
-        if (page.toc) {
-            for (var i = 0; i<page.toc.children.length; i++) {
-                var section = page.toc.children[i];
-                var url = i == 0 ? page.url :  page.url + section.url;
-                addEntry(section.title, section.content, url);
-            }
+    /**
+     * Creates a page index for all TOC content present in the page
+     * @param {*} page page with TOC content
+     */
+    function createTocIndex(page) {
+        for (var i in page.toc.children) {
+            var section = page.toc.children[i];
+            var url = i === 0 ? page.url : page.url + section.url;
+            addEntry(section.title, section.content, url);
         }
-        else if (page.content) {
-            addEntry(page.title, page.content, page.url);
-        }
+    }
 
+    /**
+     * creates a full index for the page. Used only for those pages without TOC.
+     * @param {*} page Page to create the index
+     */
+    function createPageIndex(page) {
+        addEntry(page.title, page.content, page.url);
+    }
+
+    /**
+     * Iterates over page children, creating more search indexes
+     * @param {*} page Page whose children should be indexed
+     */
+    function createChildIndexes(page) {
         if (page.children) {
-            for (var i = 0; i < page.children.length; i++) {
+            for (var i in page.children) {
                 var child = page.children[i];
                 createIndex(child);
             }
         }
     }
 
+    /** Creates the index for a page */
+    function createIndex(page) {
+        if (page.toc) {
+            createTocIndex(page);
+        } else if (page.content) {
+            createPageIndex(page);
+        }
+
+        createChildIndexes(page);
+    }
+
     createIndex(rootPage);
     var targetFile = path.join(targetPath, "docarys", "search_index.json");
-    var fileContent = JSON.stringify({docs: index});
+    var fileContent = JSON.stringify({
+        docs: index
+    });
     fs.writeFileSync(targetFile, fileContent, "utf-8");
 }
 
