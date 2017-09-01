@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var getSlug = require('speakingurl');
+var getSlug = require("speakingurl");
 
 /** Gets a browser friendly url from a text */
 function getSlut(text) {

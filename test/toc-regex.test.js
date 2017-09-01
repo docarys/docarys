@@ -5,7 +5,7 @@ var regExpToc = require("../src/markdown/toc-regex.js");
 
 describe("TOC", function () {
     it("Should create a TOC from a basic document tree using RegExp", function() {
-        // var content = fs.readFileSync(__dirname + "/docs/index.md", 'utf8');
+        // var content = fs.readFileSync(__dirname + "/docs/index.md", "utf8");
         var content = "# Welcome to docarys\n"
                 + "This is a sample. Please continue with [the next level](./level1/index.md)\n"
                 + "## H2\n"

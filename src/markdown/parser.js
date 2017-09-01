@@ -2,9 +2,9 @@
 "use strict";
 
 var hljs = require("highlight.js");
-var markdown = require('markdown-it')()
-  .use(require('markdown-it-anchor'))
-  .use(require('markdown-it-highlightjs'), {auto: true});
+var markdown = require("markdown-it")()
+  .use(require("markdown-it-anchor"))
+  .use(require("markdown-it-highlightjs"), {auto: true});
 
 require("./rules/rules.js")(markdown);
 
