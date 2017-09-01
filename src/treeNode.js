@@ -25,7 +25,7 @@ function TreeNode(title) {
                 }
             }
         }
-    };    
+    };
 }
 
 module.exports = TreeNode;
