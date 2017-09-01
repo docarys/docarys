@@ -51,7 +51,7 @@ function SearchIndex(rootPage, targetPath) {
     /** 
      * Creates the index for a page
      * @param {*} page Page to index
-     * */
+     */
     function createIndex(page) {
         if (page.toc) {
             createTocIndex(page);
@@ -59,21 +59,13 @@ function SearchIndex(rootPage, targetPath) {
             createPageIndex(page);
         }
 
-        createChildIndexes(page);
-    }    
-
-    /**
-     * Iterates over page children, creating more search indexes
-     * @param {*} page Page whose children should be indexed
-     */
-    function createChildIndexes(page) {
         if (page.children) {
             for (var i = 0; i < page.children.length; i++) {
                 var child = page.children[i];
                 createIndex(child);
             }
         }
-    }
+    }    
 
     createIndex(rootPage);
     var targetFile = path.join(targetPath, "docarys", "search_index.json");
