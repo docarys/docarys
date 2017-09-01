@@ -1,6 +1,7 @@
 /*jslint node: true */
 "use strict";
 
+var dtreeNode = require("./treeNode.js");
 var dpage = require("./page.js");
 var fs = require("fs");
 var mdParser = require("./markdown/parser.js");
@@ -28,12 +29,7 @@ function SiteTree(config) {
             var filename = pageTree[key];
             var page;
             if (Array.isArray(filename)) {
-                page = {
-                    title: title,
-                    children: [],
-                    ancestors: []
-                };
-
+                page = dtreeNode(title);
                 walk(config, filename, parser, page);
             } else {
                 page = dpage(title, filename, config, parser);
@@ -61,7 +57,7 @@ function SiteTree(config) {
             return;
         }
 
-        for (var i = 0; i < pages.children.length; i++) {
+        for (var i in pages.children) {
             var page = pages.children[i];
             if (page.url && previous && previous.url) {
                 previous.next_page = createNavPage(page);
@@ -82,7 +78,16 @@ function SiteTree(config) {
     function createNavPage(page) {
         return {
             title: page.title,
-            url: page.url
+            url: page.url,
+            active: false,
+            setActive: function (active) {
+                this.active = active;
+                if (page.ancestors && Array.isArray(page.ancestors)) {
+                    for (var i in page.ancestors) {
+                        page.ancestors[i].setPage(active);
+                    }
+                }
+            }
         };
     }
 
@@ -128,7 +133,11 @@ function SiteTree(config) {
     function buildSiteTree(config) {
         var rootNode = {
             title: "root",
-            children: []
+            active: false,
+            children: [],
+            setActive: function(active) {
+                this.active = active;
+            }
         };
 
         var pages = config.context.pages ? config.context.pages : buildPagesFromFs(config.sourcePath);

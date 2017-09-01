@@ -9,20 +9,18 @@ var utils = require("./utils.js");
 
 /**
  * A docarys page
- * @title Page title
- * @filename File name
- * @config Global site configuration
- * @parser Markdown parser, used to fill-in the page content property
+ * @param {string} title Page title
+ * @param {*} filename File name
+ * @param {*} config Global site configuration
+ * @param {*} parser Markdown parser, used to fill-in the page content property
  */
 function Page(title, filename, config, parser) {
-    var page;
     var templateFile = "main.html"; // TODO This templateFile might come from page metadata
     var targetFile = path.resolve(path.join(config.targetPath, filename.replace(".md", ".html")));
-
-    page = {
+    var page = {
         active: false,
         ancestors: [],
-        content: null,        
+        content: null,
         sourcePath: config.sourcePath,
         sourceFile: path.resolve(path.join(config.sourcePath, filename)),
         targetPath: config.targetPath,
@@ -30,7 +28,15 @@ function Page(title, filename, config, parser) {
         templatePath: config.templatePath,
         templateFile: path.join(config.templatePath, templateFile),
         title: title,
-        url: utils.pathToUri(config.targetPath, targetFile)
+        url: utils.pathToUri(config.targetPath, targetFile),
+        setActive: function (active) {
+            this.active = active;
+            if (this.ancestors && Array.isArray(this.ancestors)) {
+                for (var i in this.ancestors) {
+                    this.ancestors[i].setActive(active);
+                }
+            }
+        }
     };
 
     var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
