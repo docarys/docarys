@@ -59,7 +59,7 @@ function SiteTree(config) {
             setActive: function (active) {
                 this.active = active;
                 if (page.ancestors && Array.isArray(page.ancestors)) {
-                    for (var i in page.ancestors) {
+                    for (var i = 0; i < page.ancestors.length; i++) {
                         page.ancestors[i].setPage(active);
                     }
                 }
@@ -77,7 +77,7 @@ function SiteTree(config) {
             return;
         }
 
-        for (var i in pages.children) {
+        for (var i = 0; i < pages.children.length; i++) {
             var page = pages.children[i];
             if (page.url && previous && previous.url) {
                 previous.next_page = createNavPage(page);
@@ -105,7 +105,7 @@ function SiteTree(config) {
         }
 
         var files = fs.readdirSync(sourcePath);
-        for (var i in files) {
+        for (var i = 0; i < files.length; i++) {
             var file = files[i];
             var fullpath = path.join(sourcePath, file);
             var basePathIndex = basePath.length + 1;

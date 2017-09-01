@@ -93,7 +93,7 @@ function Render(config) {
 
         // Go down through the site tree, rendering the children
         if (Array.isArray(page.children)) {
-            for (var i in page.children) {
+            for (var i = 0; i < page.children.length; i++) {
                 renderSite(page.children[i], site);
             }
         }

@@ -10,7 +10,7 @@ var path = require("path");
  * @param {*} targetPath Path where the index should be stored
  */
 function SearchIndex(rootPage, targetPath) {
-    
+
     /** Index content */
     var index = [];
 
@@ -33,7 +33,7 @@ function SearchIndex(rootPage, targetPath) {
      * @param {*} page page with TOC content
      */
     function createTocIndex(page) {
-        for (var i in page.toc.children) {
+        for (var i = 0; i < page.toc.children.length; i++) {
             var section = page.toc.children[i];
             var url = i === 0 ? page.url : page.url + section.url;
             addEntry(section.title, section.content, url);
@@ -54,7 +54,7 @@ function SearchIndex(rootPage, targetPath) {
      */
     function createChildIndexes(page) {
         if (page.children) {
-            for (var i in page.children) {
+            for (var i = 0; i < page.children.length; i++) {
                 var child = page.children[i];
                 createIndex(child);
             }

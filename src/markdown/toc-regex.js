@@ -88,7 +88,7 @@ function RegExToc(content) {
 
     var matches = content.match(regexp);
 
-    for (var i in matches) {
+    for (var i = 0; i < matches.length; i++) {
         var match = matches[i];
         var nextMatch = i < match.length - 1 ? matches[i + 1] : null;
         // TODO We need to find a new way to fill in the section content for the search engine. 
