@@ -27,7 +27,7 @@ function Render(config) {
     function renderTheme (templatePath, targetPath) {
         var opts = {
             filter: function (filename) {
-                return !filename.endsWith('.html');
+                return !filename.endsWith(".html");
             }
         };
 
@@ -42,7 +42,7 @@ function Render(config) {
     function renderContent(sourcePath, targetPath) {
         var opts = {
             filter: function (filename) {
-                return !filename.endsWith('.md');
+                return !filename.endsWith(".md");
             }
         };
 

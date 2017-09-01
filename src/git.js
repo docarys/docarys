@@ -1,9 +1,9 @@
 /*jslint node: true */
 "use strict";
 
-var exec = require('child_process').execSync;
-var md5 = require('md5');
-var Stream = require('stream');
+var exec = require("child_process").execSync;
+var md5 = require("md5");
+var Stream = require("stream");
 
 const projectContributorsCmd = "git log --all --format='{ \"user\": \"%aN\", \"email\": \"%cE\"},' | sort -u";
 const fileContributorsCmd = "git log --all --format='{ \"user\": \"%aN\", \"email\": \"%cE\"},' $fileName | sort -u";

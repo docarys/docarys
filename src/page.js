@@ -4,7 +4,7 @@
 var fs = require("fs");
 var mdToc = require("./markdown/toc-regex.js");
 var path = require("path");
-var readingTime = require('reading-time');
+var readingTime = require("reading-time");
 var utils = require("./utils.js");
 
 /**
@@ -39,7 +39,7 @@ function Page(title, filename, config, parser) {
         }
     };
 
-    var sourceContent = fs.readFileSync(page.sourceFile, 'utf8');
+    var sourceContent = fs.readFileSync(page.sourceFile, "utf8");
     if (page.sourceFile.endsWith(".md")) {
         page.toc = mdToc(sourceContent);
         page.content = parser.render(sourceContent);

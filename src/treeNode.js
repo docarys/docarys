@@ -4,7 +4,7 @@
 var fs = require("fs");
 var mdToc = require("./markdown/toc-regex.js");
 var path = require("path");
-var readingTime = require('reading-time');
+var readingTime = require("reading-time");
 var utils = require("./utils.js");
 
 /**
