@@ -50,7 +50,7 @@ function git() {
      * @param {*} contributors List of contributors
      */
     function addGravatar(contributors) {
-        for (var i in contributors) {
+        for (var i = 0; i < contributors.length; i++) {
             contributors[i].gravatar = gravatar(contributors[i].email);
         }
 

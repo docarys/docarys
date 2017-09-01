@@ -20,7 +20,7 @@ function TreeNode(title) {
         setActive: function (active) {
             this.active = active;
             if (this.ancestors && Array.isArray(this.ancestors)) {
-                for (var i in this.ancestors) {
+                for (var i = 0; i < this.ancestors.length; i++) {
                     this.ancestors[i].setActive(active);
                 }
             }
