@@ -30,7 +30,7 @@ function SearchIndex(rootPage, targetPath) {
 
     /**
      * Creates a page index for all TOC content present in the page
-     * @param {*} page page with TOC content
+     * @param {*} page page with TOC content to index
      */
     function createTocIndex(page) {
         for (var i in page.toc.children) {
@@ -42,11 +42,25 @@ function SearchIndex(rootPage, targetPath) {
 
     /**
      * creates a full index for the page. Used only for those pages without TOC.
-     * @param {*} page Page to create the index
+     * @param {*} page Page to index
      */
     function createPageIndex(page) {
         addEntry(page.title, page.content, page.url);
     }
+
+    /** 
+     * Creates the index for a page
+     * @param {*} page Page to index
+     * */
+    function createIndex(page) {
+        if (page.toc) {
+            createTocIndex(page);
+        } else if (page.content) {
+            createPageIndex(page);
+        }
+
+        createChildIndexes(page);
+    }    
 
     /**
      * Iterates over page children, creating more search indexes
@@ -59,17 +73,6 @@ function SearchIndex(rootPage, targetPath) {
                 createIndex(child);
             }
         }
-    }
-
-    /** Creates the index for a page */
-    function createIndex(page) {
-        if (page.toc) {
-            createTocIndex(page);
-        } else if (page.content) {
-            createPageIndex(page);
-        }
-
-        createChildIndexes(page);
     }
 
     createIndex(rootPage);
