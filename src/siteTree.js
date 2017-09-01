@@ -118,7 +118,7 @@ function SiteTree(config) {
                 pages.push(node);
             }
             else {
-                var name = file.substr(0, file.lastIndexOf('.'));
+                var name = file.substr(0, file.lastIndexOf("."));
                 node[name] = relativePath;
                 pages.push(node);
             }

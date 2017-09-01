@@ -8,8 +8,8 @@ var render = require("../src/render.js");
 
 describe("Render", function () {
     it("Should create the files", function () {
-        var cfg = new config();
-        var r = new render(cfg);
+        var cfg = config();
+        var r = render(cfg);
         r.render();
         expect(r).toExist();
         var file1 = path.resolve(__dirname + "/build" + "/index.html");
