@@ -32,6 +32,19 @@ function RegExToc(content) {
     }
 
     /**
+     * Finds the parent element in the levels array
+     * @param {*} node TOC node
+     */
+    function findParent(node) {
+        for (var level = node.level - 1; level >= 0; level--) {
+            var parentLevel = levels[level];
+            if (parentLevel) {
+                return parentLevel;
+            }
+        }
+    }
+
+    /**
      * Set the TOC node parent items
      * @param {*} node TOC Node
      */
@@ -67,19 +80,6 @@ function RegExToc(content) {
     //     var length = end - start;
     //     return content.substr(start, length);
     // }
-
-    /**
-     * Finds the parent element in the levels array
-     * @param {*} node TOC node
-     */
-    function findParent(node) {
-        for (var level = node.level - 1; level >= 0; level--) {
-            var parentLevel = levels[level];
-            if (parentLevel) {
-                return parentLevel;
-            }
-        }
-    }
 
     /** Header sorted by levels (H1, H2, H3...) */
     var levels = [];
