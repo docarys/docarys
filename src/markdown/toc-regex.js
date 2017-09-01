@@ -31,22 +31,20 @@ function RegExToc(content) {
         };
     }
 
-    /** Header sorted by levels (H1, H2, H3...) */
-    var levels = [];
-
-    levels[0] = [createNode("root")];
-
-    var matches = content.match(regexp);
-
-    for (var i in matches) {
-        var match = matches[i];
-        var nextMatch = i < match.length - 1 ? matches[i+1] : null;
-        // TODO We need to find a new way to fill in the section content for the search engine. 
-        // This way has a huge performance impact. Disabled
-        // var sectionContent = getSectionContent(content, match, nextMatch);
-        var sectionContent = "TODO";
-        var node = createNode(match, sectionContent);
-        setParent(node);
+    /**
+     * Set the TOC node parent items
+     * @param {*} node TOC Node
+     */
+    function setParent(node) {
+        var parentLevel = findParent(node);
+        // Check if it is an array or a node (in almost all cases, there will be more than one item per level)
+        var parent = parentLevel[parentLevel.length - 1];
+        parent.children.push(node);
+        if (!levels[node.level]) {
+            levels[node.level] = [node];
+        } else {
+            levels[node.level].push(node);
+        }
     }
 
     /**
@@ -83,20 +81,22 @@ function RegExToc(content) {
         }
     }
 
-    /**
-     * Set the TOC node parent items
-     * @param {*} node TOC Node
-     */
-    function setParent(node) {
-        var parentLevel = findParent(node);
-        // Check if it is an array or a node (in almost all cases, there will be more than one item per level)
-        var parent = parentLevel[parentLevel.length - 1];
-        parent.children.push(node);
-        if (!levels[node.level]) {
-            levels[node.level] = [node];
-        } else {
-            levels[node.level].push(node);
-        }
+    /** Header sorted by levels (H1, H2, H3...) */
+    var levels = [];
+
+    levels[0] = [createNode("root")];
+
+    var matches = content.match(regexp);
+
+    for (var i in matches) {
+        var match = matches[i];
+        var nextMatch = i < match.length - 1 ? matches[i + 1] : null;
+        // TODO We need to find a new way to fill in the section content for the search engine. 
+        // This way has a huge performance impact. Disabled
+        // var sectionContent = getSectionContent(content, match, nextMatch);
+        var sectionContent = "TODO";
+        var node = createNode(match, sectionContent);
+        setParent(node);
     }
 
     return levels[0][0]; // Return root node. (There will be only one).

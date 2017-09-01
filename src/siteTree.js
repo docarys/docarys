@@ -34,7 +34,7 @@ function SiteTree(config) {
             } else {
                 page = dpage(title, filename, config, parser);
                 page.ancestors = parentPage.ancestors ? parentPage.ancestors.slice() : [];
-                if (parentPage.title != "root") {
+                if (parentPage.title !== "root") {
                     page.ancestors.push(parentPage);
                 }
             }
