@@ -17,16 +17,13 @@ describe("SiteTree", function () {
     it("Should create a site tree from folder structure, if no pages specified in configuration", function () {
         var cfg = config("docarys.notree.yml");
         var tree = siteTree(cfg);
-        var emptyFolder = path.join(cfg.sourcePath, "empty");
-        fse.emptyDirSync(emptyFolder);
         expect(tree).toExist();
         expect(tree.children).toExist();
-        expect(tree.children.length).toBe(3);
-        expect(tree.children[0].children.length).toBe(0);
-        expect(tree.children[1].title).toBe("index");
-        expect(tree.children[2].children.length).toBe(2);
-        expect(tree.children[2].children[0].title).toBe("index");
-        expect(tree.children[2].children[1].title).toBe("other");
+        expect(tree.children.length).toBe(2);
+        expect(tree.children[0].title).toBe("index");
+        expect(tree.children[1].children.length).toBe(2);
+        expect(tree.children[1].children[0].title).toBe("index");
+        expect(tree.children[1].children[1].title).toBe("other");
     });
 });
 
