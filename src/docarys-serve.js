@@ -11,7 +11,7 @@ var cfg = config();
 console.info("Building documentation...");
 var r = render(cfg);
 r.render();
-console.info(chalk.yellow("Monitoring changes "" + cfg.sourcePath + """));
+console.info(chalk.yellow("Monitoring changes \"" + cfg.sourcePath + "\""));
 watch.watchTree(cfg.sourcePath, function () {
     console.info(chalk.yellow("Changes detected, building..."));
     cfg = config();
