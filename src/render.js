@@ -70,7 +70,7 @@ function Render(config) {
                     branch: gitFolder.branch,
                     hash: gitFolder.hash,
                     contributors: gitFile.contributors
-                }
+                };
             }
             mkdirp.sync(path.dirname(page.targetFile));
             var html = nunjucks.render(page.templateFile, renderContext);
