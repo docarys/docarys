@@ -14,6 +14,9 @@ function RegExToc(content) {
      */
     const regexp = new RegExp(/#{1,10}\s.*/g);
 
+    /** Header sorted by levels (H1, H2, H3...) */
+    var levels = [];
+
     /** Creates a new TOC node */
     function createNode(text, content) {
         if (content) {
@@ -80,9 +83,6 @@ function RegExToc(content) {
             }
         }
     }
-
-    /** Header sorted by levels (H1, H2, H3...) */
-    var levels = [];
 
     levels[0] = [createNode("root")];
 
