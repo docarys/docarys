@@ -30,13 +30,12 @@ function SiteTree(config) {
             var page;
             if (Array.isArray(filename)) {
                 page = dtreeNode(title);
+                page.ancestors.push(parentPage);
                 walk(config, filename, parser, page);
             } else {
                 page = dpage(title, filename, config, parser);
-                page.ancestors = parentPage.ancestors ? parentPage.ancestors.slice() : [];
-                if (parentPage.title !== "root") {
-                    page.ancestors.push(parentPage);
-                }
+                page.ancestors = parentPage.ancestors ? parentPage.ancestors.slice() : [];// if (parentPage.title !== "root") {
+                page.ancestors.push(parentPage);
             }
 
             if (parentPage) {
@@ -74,7 +73,7 @@ function SiteTree(config) {
      * */
     function buildNavigationPath(pages, previous) {
         if (!pages.children) {
-            return;
+            return previous;
         }
 
         for (var i = 0; i < pages.children.length; i++) {
@@ -87,8 +86,10 @@ function SiteTree(config) {
                 previous = page;
             }
 
-            buildNavigationPath(page, previous);
+            previous = buildNavigationPath(page, previous);
         }
+
+        return previous;
     }
 
     /**
