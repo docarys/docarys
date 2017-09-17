@@ -73,7 +73,7 @@ function SiteTree(config) {
      * */
     function buildNavigationPath(pages, previous) {
         if (!pages.children) {
-            return;
+            return previous;
         }
 
         for (var i = 0; i < pages.children.length; i++) {
@@ -86,8 +86,10 @@ function SiteTree(config) {
                 previous = page;
             }
 
-            buildNavigationPath(page, previous);
+            previous = buildNavigationPath(page, previous);
         }
+
+        return previous;
     }
 
     /**

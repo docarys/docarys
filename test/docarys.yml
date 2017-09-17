@@ -16,3 +16,5 @@ pages:
     - Other page: level1/other.md
     - Level 2:
       - Other page: level1/level2/index.md
+
+  - About: about.md
