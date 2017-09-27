@@ -9,6 +9,9 @@
   "files": [
     "src"
   ],
+  "directories":{
+    "site": "site"
+  },   
   "dependencies": {
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
