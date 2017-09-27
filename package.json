@@ -1,6 +1,6 @@
 {
   "name": "docarys",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Yet another static web site utility for technical documentation",
   "main": "src/index.js",
   "bin": {
@@ -9,6 +9,9 @@
   "files": [
     "src"
   ],
+  "directories":{
+    "site": "site"
+  },   
   "dependencies": {
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
