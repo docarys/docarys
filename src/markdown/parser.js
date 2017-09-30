@@ -1,10 +1,11 @@
 /*jslint node: true */
 "use strict";
 
-var hljs = require("highlight.js");
-var markdown = require("markdown-it")()
-  .use(require("markdown-it-anchor"))
-  .use(require("markdown-it-highlightjs"), {auto: true});
+require("highlight.js");
+var markdown = require("markdown-it")({html: true})
+    .use(require("markdown-it-anchor"))
+    .use(require("markdown-it-highlightjs"), {auto: true})
+    .use(require('markdown-it-sanitizer'));
 
 require("./rules/rules.js")(markdown);
 
