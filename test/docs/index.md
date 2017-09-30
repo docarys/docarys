@@ -10,6 +10,9 @@ Console.WriteLine("Hello world!");
 | -------- | -------- |
 | Column 1 | Column 2 |
 
+## This is scaped HTML
+
+Visit docarys on <a href="http://www.docarys.io" target="_blank">Github!</a> and [www.docarys.io](http://www.docarys.io)
 
 ## H2
 
