@@ -2,25 +2,51 @@
 "use strict";
 
 var exec = require("child_process").execSync;
+var spawn = require("child_process").spawnSync;
 var md5 = require("md5");
 var Stream = require("stream");
+var os = require("os");
 
-const projectContributorsCmd = "git log --all --format='{ \"user\": \"%aN\", \"email\": \"%cE\"},' | sort -u";
-const fileContributorsCmd = "git log --all --format='{ \"user\": \"%aN\", \"email\": \"%cE\"},' $fileName | sort -u";
+const projectContributorsCmd = "git log --all --format=\"{ \"user\": \"%aN\", \"email\": \"%cE\"},\" | sort -u";
+const fileContributorsCmd = "git log --all --format=\"{ \"user\": \"%aN\", \"email\": \"%cE\"},\" $fileName | sort -u";
 const fileLastCommitDateCmd = "git log -1 --format=%ci $fileName";
-const hashShortCmd = "git log --pretty=format:'%h' -n 1";
-const hashCmd = "git log --pretty=format:'%H' -n 1";
+const hashShortCmd = "git log --pretty=format:\"%h\" -n 1";
+const hashCmd = "git log --pretty=format:\"%H\" -n 1";
 const currentBranchCmd = "git rev-parse --abbrev-ref HEAD";
 
 function git() {
 
     /**
-     * Executes a git command in the given path. A valid Git repository should be present at the given cwd
+     * Determines the OS running docarys and Executes a git command in the given path. A valid Git repository should be present at the given cwd
      * @param {*} cmd Command to execute
      * @param {*} cwd Path where .git folder is located
      */
     function gitCommand(cmd, cwd) {
-        var stream = new Stream();
+        switch(os.platform()){
+            case "win32":
+            return gitWinCommand(cmd, cwd);
+            default:
+            return gitUnixCommand(cmd, cwd);
+            break;
+        }
+    }
+
+     /**
+     * Executes a git command in the given path, in a Windows OS. A valid Git repository should be present at the given cwd
+     * @param {*} cmd Command to execute
+     * @param {*} cwd Path where .git folder is located
+     */
+    function gitWinCommand(cmd, cwd) {
+        //TODO Temporary patch to make docarys work on Windows.
+        return "";
+    }
+
+    /**
+     * Executes a git command in the given path, in a Unix OS. A valid Git repository should be present at the given cwd
+     * @param {*} cmd Command to execute
+     * @param {*} cwd Path where .git folder is located
+     */
+    function gitUnixCommand(cmd, cwd) {
         var result = exec(cmd, {
             cwd: cwd
         });
