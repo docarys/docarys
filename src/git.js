@@ -7,11 +7,11 @@ var md5 = require("md5");
 var Stream = require("stream");
 var os = require("os");
 
-const projectContributorsCmd = "git log --all --format=\"{ \"user\": \"%aN\", \"email\": \"%cE\"},\" | sort -u";
-const fileContributorsCmd = "git log --all --format=\"{ \"user\": \"%aN\", \"email\": \"%cE\"},\" $fileName | sort -u";
+const projectContributorsCmd = "git log --all --format='{ \"user\": \"%aN\", \"email\": \"%cE\"},' | sort -u";
+const fileContributorsCmd = "git log --all --format='{ \"user\": \"%aN\", \"email\": \"%cE\"},' $fileName | sort -u";
 const fileLastCommitDateCmd = "git log -1 --format=%ci $fileName";
-const hashShortCmd = "git log --pretty=format:\"%h\" -n 1";
-const hashCmd = "git log --pretty=format:\"%H\" -n 1";
+const hashShortCmd = "git log --pretty=format:'%h' -n 1";
+const hashCmd = "git log --pretty=format:'%H' -n 1";
 const currentBranchCmd = "git rev-parse --abbrev-ref HEAD";
 
 function git() {
