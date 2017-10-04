@@ -4,8 +4,8 @@ node_js:
 - '7'
 os:
   - linux
-  - osx
-  - windows
+  # - osx
+  # - windows
 before_install:
 - npm install -g docarys-material
 after_success:
