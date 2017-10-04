@@ -106,16 +106,28 @@ function Render(config) {
         var site = siteTree(config);
         console.info("Cleaning site directory");
         rimraf.sync(config.targetPath);
+        mkdirp.sync(config.targetPath);
         console.info("Building documentation to directory: '" + config.targetPath + "'");
         renderTheme(config.templatePath, config.targetPath);
         renderContent(config.sourcePath, config.targetPath);
         renderContent(path.join(config.modulePath, "..", "site"), config.targetPath);
         renderSite(site);
         createSearchIndex(site, config.targetPath);
-    }    
+    }
+
+    function refresh() {
+        var site = siteTree(config);
+        console.info("Refreshing: '" + config.targetPath + "'");
+        renderTheme(config.templatePath, config.targetPath);
+        renderContent(config.sourcePath, config.targetPath);
+        renderContent(path.join(config.modulePath, "..", "site"), config.targetPath);
+        renderSite(site);
+        createSearchIndex(site, config.targetPath);
+    }
 
     return {
-        render: render
+        render: render,
+        refresh: refresh
     };
 }
 

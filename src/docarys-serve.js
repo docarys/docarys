@@ -14,8 +14,7 @@ r.render();
 console.info(chalk.yellow("Monitoring changes \"" + cfg.sourcePath + "\""));
 watch.watchTree(cfg.sourcePath, function () {
     console.info(chalk.yellow("Changes detected, building..."));
-    cfg = config();
-    r.render();
+    r.refresh(true);
     console.info(chalk.yellow("Build succeed"));
 });
 
