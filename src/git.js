@@ -68,7 +68,7 @@ function git() {
      * @param {*} email Gravatar user e-mail
      */
     function gravatar(email) {
-        return "http://www.gravatar.com/avatar/" + md5(email) + "?d=identicon";
+        return "https://www.gravatar.com/avatar/" + md5(email) + "?d=identicon";
     }
 
     /**
