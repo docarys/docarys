@@ -88,15 +88,17 @@ function RegExToc(content) {
 
     var matches = content.match(regexp);
 
-    for (var i = 0; i < matches.length; i++) {
-        var match = matches[i];
-        var nextMatch = i < match.length - 1 ? matches[i + 1] : null;
-        // TODO We need to find a new way to fill in the section content for the search engine. 
-        // This way has a huge performance impact. Disabled
-        // var sectionContent = getSectionContent(content, match, nextMatch);
-        var sectionContent = "TODO";
-        var node = createNode(match, sectionContent);
-        setParent(node);
+    if (matches) {
+        for (var i = 0; i < matches.length; i++) {
+            var match = matches[i];
+            var nextMatch = i < match.length - 1 ? matches[i + 1] : null;
+            // TODO We need to find a new way to fill in the section content for the search engine. 
+            // This way has a huge performance impact. Disabled
+            // var sectionContent = getSectionContent(content, match, nextMatch);
+            var sectionContent = "TODO";
+            var node = createNode(match, sectionContent);
+            setParent(node);
+        }
     }
 
     return levels[0][0]; // Return root node. (There will be only one).
