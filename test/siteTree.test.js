@@ -33,7 +33,7 @@ describe("SiteTree", function () {
         var tree = siteTree(cfg);
         expect(tree).toExist();
         expect(tree.children).toExist();
-        expect(tree.children.length).toBe(3);
+        expect(tree.children.length).toBe(4);
         expect(tree.children[0].title).toBe("about");
         expect(tree.children[1].title).toBe("index");
         expect(tree.children[2].children.length).toBe(3);
