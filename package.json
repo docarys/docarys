@@ -20,6 +20,7 @@
     "live-server": "^1.2.0",
     "markdown-it": "^8.4.0",
     "markdown-it-anchor": "^4.0.0",
+    "markdown-it-container": "^2.0.0",
     "markdown-it-highlightjs": "^3.0.0",
     "markdown-it-sanitizer": "^0.4.3",
     "md5": "^2.2.1",

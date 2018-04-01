@@ -4,6 +4,7 @@
 require("highlight.js");
 var markdown = require("markdown-it")({html: true})
     .use(require("markdown-it-anchor"))
+    .use(require("./plugins/markdown-it-admonition.js"))
     .use(require("markdown-it-highlightjs"), {auto: true})
     .use(require("markdown-it-sanitizer"));
 
