@@ -29,3 +29,11 @@ This is second level again
 ### H3 Again
 
 This is third level again
+
+!!! warning This is a test
+This is an admonition test.
+
+Second *line*
+
+[docarys](http://www.docarys.io)
+!!!
