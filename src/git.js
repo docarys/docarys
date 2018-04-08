@@ -27,7 +27,6 @@ function git() {
             return gitWinCommand(cmd, cwd);
             default:
             return gitUnixCommand(cmd, cwd);
-            break;
         }
     }
 

@@ -1,23 +1,7 @@
-// Process block-level custom containers
-//
 'use strict';
 
 
-module.exports = function container_plugin(md, options) {
-
-  function validateDefault(params) {
-    var array = params.trim().split(' ', 2);
-    type = array[0];
-    if (params.length > type.length + 2) {
-        title = params.substring(type.length + 2, params.length);
-    }
-
-    if (!title) {
-        title = type;
-    }
-
-    return types.includes(type);
-  }
+module.exports = function admonitionPlugin(md, options) {
 
   function renderDefault(tokens, idx, _options, env, self) {
 
@@ -36,18 +20,33 @@ module.exports = function container_plugin(md, options) {
   options = options || {};
 
   var min_markers = 3,
-      marker_str  = options.marker || '!',
-      marker_char = marker_str.charCodeAt(0),
-      marker_len  = marker_str.length,
+      markerStr  = options.marker || "!",
+      markerChar = markerStr.charCodeAt(0),
+      markerLen  = markerStr.length,
       validate    = validateDefault,
       render      = renderDefault,
       type        = "",
       title       = null,
       types       = ["note", "abstract", "info", "tip", "success", "question", "warning", "failure", "danger", "bug", "example", "quote"];
 
+
+    function validateDefault(params) {
+      var array = params.trim().split(" ", 2);
+      type = array[0];
+      if (params.length > type.length + 2) {
+          title = params.substring(type.length + 2, params.length);
+      }
+  
+      if (!title) {
+          title = type;
+      }
+  
+      return types.includes(type);
+    }
+
   function admonition(state, startLine, endLine, silent) {
-    var pos, nextLine, marker_count, markup, params, token,
-        old_parent, old_line_max,
+    var pos, nextLine, markerCount, markup, params, token,
+        oldParent, oldLineMax,
         auto_closed = false,
         start = state.bMarks[startLine] + state.tShift[startLine],
         max = state.eMarks[startLine];
@@ -55,19 +54,19 @@ module.exports = function container_plugin(md, options) {
     // Check out the first character quickly,
     // this should filter out most of non-containers
     //
-    if (marker_char !== state.src.charCodeAt(start)) { return false; }
+    if (markerChar !== state.src.charCodeAt(start)) { return false; }
 
     // Check out the rest of the marker string
     //
     for (pos = start + 1; pos <= max; pos++) {
-      if (marker_str[(pos - start) % marker_len] !== state.src[pos]) {
+      if (markerStr[(pos - start) % markerLen] !== state.src[pos]) {
         break;
       }
     }
 
-    marker_count = Math.floor((pos - start) / marker_len);
-    if (marker_count < min_markers) { return false; }
-    pos -= (pos - start) % marker_len;
+    markerCount = Math.floor((pos - start) / markerLen);
+    if (markerCount < min_markers) { return false; }
+    pos -= (pos - start) % markerLen;
 
     markup = state.src.slice(start, pos);
     params = state.src.slice(pos, max);
@@ -99,7 +98,7 @@ module.exports = function container_plugin(md, options) {
         break;
       }
 
-      if (marker_char !== state.src.charCodeAt(start)) { continue; }
+      if (markerChar !== state.src.charCodeAt(start)) { continue; }
 
       if (state.sCount[nextLine] - state.blkIndent >= 4) {
         // closing fence should be indented less than 4 spaces
@@ -107,16 +106,16 @@ module.exports = function container_plugin(md, options) {
       }
 
       for (pos = start + 1; pos <= max; pos++) {
-        if (marker_str[(pos - start) % marker_len] !== state.src[pos]) {
+        if (markerStr[(pos - start) % markerLen] !== state.src[pos]) {
           break;
         }
       }
 
       // closing adminition fence must be at least as long as the opening one
-      if (Math.floor((pos - start) / marker_len) < marker_count) { continue; }
+      if (Math.floor((pos - start) / markerLen) < markerCount) { continue; }
 
       // make sure tail has spaces only
-      pos -= (pos - start) % marker_len;
+      pos -= (pos - start) % markerLen;
       pos = state.skipSpaces(pos);
 
       if (pos < max) { continue; }
@@ -126,50 +125,50 @@ module.exports = function container_plugin(md, options) {
       break;
     }
 
-    old_parent = state.parentType;
-    old_line_max = state.lineMax;
-    state.parentType = 'admonition';
+    oldParent = state.parentType;
+    oldLineMax = state.lineMax;
+    state.parentType = "admonition";
 
     // this will prevent lazy continuations from ever going past our end marker
     state.lineMax = nextLine;
 
-    token        = state.push('admonition_open', 'div', 1);
+    token        = state.push("admonition_open", "div", 1);
     token.markup = markup;
     token.block  = true;
     token.info   = type;
     token.map    = [ startLine, nextLine ];
 
     // admonition title
-    token        = state.push('admonition_title_open', 'p', 1);
+    token        = state.push("admonition_title_open", "p", 1);
     token.markup = markup + " " + type;
     token.map    = [ startLine, nextLine ];
 
-    token          = state.push('inline', '', 0);
+    token          = state.push("inline", "", 0);
     token.content  = title;
     token.map      = [ startLine, state.line - 1 ];
     token.children = [];
 
-    token        = state.push('admonition_title_close', 'p', -1);
+    token        = state.push("admonition_title_close", "p", -1);
     token.markup = markup + " " + type;
 
     state.md.block.tokenize(state, startLine + 1, nextLine);
 
-    token        = state.push('admonition_close', 'div', -1);
+    token        = state.push("admonition_close", "div", -1);
     token.markup = state.src.slice(start, pos);
     token.block  = true;
 
-    state.parentType = old_parent;
-    state.lineMax = old_line_max;
+    state.parentType = oldParent;
+    state.lineMax = oldLineMax;
     state.line = nextLine + (auto_closed ? 1 : 0);
 
     return true;
   }
 
-  md.block.ruler.before('code', 'admonition', admonition, {
-    alt: ['paragraph', 'reference', 'blockquote', 'list' ]
+  md.block.ruler.before("code", "admonition", admonition, {
+    alt: ["paragraph", "reference", "blockquote", "list" ]
   });
-  md.renderer.rules['admonition_open'] = render;
-  md.renderer.rules['admonition_title_open'] = render;
-  md.renderer.rules['admonition_title_close'] = render;
-  md.renderer.rules['admonition_close'] = render;
+  md.renderer.rules["admonition_open"] = render;
+  md.renderer.rules["admonition_title_open"] = render;
+  md.renderer.rules["admonition_title_close"] = render;
+  md.renderer.rules["admonition_close"] = render;
 };
