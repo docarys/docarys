@@ -32,7 +32,7 @@ function Config(filename) {
         context.theme = {
             "name": "material",
             "language": "en"
-        }
+        };
     }
 
     var theme = context.theme && context.theme.name ? "docarys-" + context.theme.name : "docarys-material";

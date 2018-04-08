@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 
 module.exports = function admonitionPlugin(md, options) {
@@ -7,7 +7,7 @@ module.exports = function admonitionPlugin(md, options) {
 
     var token = tokens[idx];
 
-    if (token.type == "admonition_open") {
+    if (token.type === "admonition_open") {
         tokens[idx].attrPush([ "class", "admonition " + type ]);
     }
     else if (token.type === "admonition_title_open") {
@@ -19,7 +19,7 @@ module.exports = function admonitionPlugin(md, options) {
 
   options = options || {};
 
-  var min_markers = 3,
+  var minMarkers = 3,
       markerStr  = options.marker || "!",
       markerChar = markerStr.charCodeAt(0),
       markerLen  = markerStr.length,
@@ -47,7 +47,7 @@ module.exports = function admonitionPlugin(md, options) {
   function admonition(state, startLine, endLine, silent) {
     var pos, nextLine, markerCount, markup, params, token,
         oldParent, oldLineMax,
-        auto_closed = false,
+        autoClosed = false,
         start = state.bMarks[startLine] + state.tShift[startLine],
         max = state.eMarks[startLine];
 
@@ -65,7 +65,7 @@ module.exports = function admonitionPlugin(md, options) {
     }
 
     markerCount = Math.floor((pos - start) / markerLen);
-    if (markerCount < min_markers) { return false; }
+    if (markerCount < minMarkers) { return false; }
     pos -= (pos - start) % markerLen;
 
     markup = state.src.slice(start, pos);
@@ -121,7 +121,7 @@ module.exports = function admonitionPlugin(md, options) {
       if (pos < max) { continue; }
 
       // found!
-      auto_closed = true;
+      autoClosed = true;
       break;
     }
 
@@ -159,7 +159,7 @@ module.exports = function admonitionPlugin(md, options) {
 
     state.parentType = oldParent;
     state.lineMax = oldLineMax;
-    state.line = nextLine + (auto_closed ? 1 : 0);
+    state.line = nextLine + (autoClosed ? 1 : 0);
 
     return true;
   }
