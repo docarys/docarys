@@ -26,7 +26,7 @@
     "md5": "^2.2.1",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
-    "nunjucks": "^3.0.1",
+    "nunjucks": "^3.1.2",
     "reading-time": "^1.1.0",
     "remove-markdown": "^0.2.2",
     "rimraf": "^2.6.1",
