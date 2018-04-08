@@ -23,16 +23,26 @@ function Config(filename) {
     /** Variable context, resulting from the load of the YAML file */
     var context = yamljs.load(cfgfile);
     /** Full path where the source documents are stored */
-    var sourcePath = path.resolve(path.join(cwdPath, (context["sourceDir"] ? context["sourceDir"] : "docs")));
+    var sourcePath = path.resolve(path.join(cwdPath, (context.sourceDir ? context.sourceDir : "docs")));
     /** Full path where output should be stored */
-    var targetPath = path.resolve(path.join(cwdPath, (context["targetDir"] ? context["targetDir"] : "build")));
+    var targetPath = path.resolve(path.join(cwdPath, (context.targetDir ? context.targetDir : "build")));
+
+    /** Setup default theme values if not specified by the user */
+    if (!context.theme) {
+        context.theme = {
+            "name": "material",
+            "language": "en"
+        }
+    }
+
+    var theme = context.theme && context.theme.name ? "docarys-" + context.theme.name : "docarys-material";
+
+    var themePath = path.join(getInstalledPath.sync(theme), "build");
 
     function resolveTheme() {
-        if (context["theme_dir"]) {
-            return path.resolve(path.join(cwdPath, context["theme_dir"])); // Custom path specified by config
+        if (context.theme && context.theme.custom_dir) {
+            return path.resolve(path.join(cwdPath, context.theme.custom_dir)); // Custom path specified by config
         } else {
-            var theme = context["theme"] ? "docarys-" + context["theme"] : "docarys-material";
-            var themePath = path.join(getInstalledPath.sync(theme), "build");
             if (!fs.existsSync(themePath)) {
                 console.log(chalk.red("Theme not found in '" + themePath + "'. Please install it: npm install -g " + theme));
                 process.exit(-1);
@@ -42,10 +52,25 @@ function Config(filename) {
         }
     }
 
+    function loadLanguage(lang) {
+        if (!lang) {
+            return {};
+        }
+
+        var langPath = path.join(themePath, "language");
+        if (fs.existsSync(langPath)) {
+            var defaultValues = require(path.join(langPath, "default.json"));
+            var languageValues = require(path.join(langPath, lang + ".json"));
+            return Object.assign(defaultValues, languageValues);
+        }
+    }
+
     /** Template full path. 
      * By default, it uses the built-in "default". 
      * If "theme_dir" is specified, it looks at cwd  */
     var templatePath = resolveTheme();
+
+    var language = loadLanguage(context.theme.language);
 
     /** Checks if is possible to enable Git extensions */
     var enableGit = fs.existsSync(path.join(cwdPath, ".git"));
@@ -54,6 +79,7 @@ function Config(filename) {
         /** Configuration context */
         context: context,
         cwdPath: cwdPath,
+        language: language,
         enableGit: enableGit,
         modulePath: modulePath,
         sourcePath: sourcePath,
