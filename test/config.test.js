@@ -34,8 +34,7 @@ describe("Configuration", function () {
         expect(subpage["Level 2"]).toBe("level1/index.md");
     });
     it("Should change templateDir if specified", function () {
-        var cfg = config("docarys.theme_dir.yml");
-        expect(cfg.context["theme_dir"]).toBe("custom", "site_name should be \"custom\" in file docarys.theme_dir.yml");
-        expect(cfg.templatePath).toBe(cfg.cwdPath + "/custom");
+        var cfg = config("docarys.custom.theme.yml");
+        expect(cfg.context.theme.name).toBe("material", "site.name should be \"material\" in file docarys.custom.theme.yml");
     });
 });
