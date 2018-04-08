@@ -3,19 +3,6 @@
 
 module.exports = function admonitionPlugin(md, options) {
 
-  function renderDefault(tokens, idx, _options, env, self) {
-
-    var token = tokens[idx];
-
-    if (token.type === "admonition_open") {
-        tokens[idx].attrPush([ "class", "admonition " + type ]);
-    }
-    else if (token.type === "admonition_title_open") {
-        tokens[idx].attrPush([ "class", "admonition-title"]);
-    }
-
-    return self.renderToken(tokens, idx, _options, env, self);
-  }
 
   options = options || {};
 
@@ -28,7 +15,20 @@ module.exports = function admonitionPlugin(md, options) {
       type        = "",
       title       = null,
       types       = ["note", "abstract", "info", "tip", "success", "question", "warning", "failure", "danger", "bug", "example", "quote"];
+    
+  function renderDefault(tokens, idx, _options, env, self) {
 
+      var token = tokens[idx];
+  
+      if (token.type === "admonition_open") {
+          tokens[idx].attrPush([ "class", "admonition " + type ]);
+      }
+      else if (token.type === "admonition_title_open") {
+          tokens[idx].attrPush([ "class", "admonition-title"]);
+      }
+  
+      return self.renderToken(tokens, idx, _options, env, self);
+    }
 
     function validateDefault(params) {
       var array = params.trim().split(" ", 2);
