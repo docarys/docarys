@@ -3,7 +3,9 @@ repo_url: https://github.com/docarys/docarys
 repo_name: Fork me on Github
 edit_uri: https://github.com/docarys/docarys
 copyright: sesispla@outlook.com (MIT)
-extra:
+theme:
+  name: material
+  language: en
   feature:
     tabs: false
   palette:
