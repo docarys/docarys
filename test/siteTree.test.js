@@ -25,7 +25,7 @@ describe("SiteTree", function () {
         expect(tree.children[1].ancestors.length).toBe(1);
         expect(tree.children[1].children[0].title).toBe("Level 2");
         expect(tree.children[1].children[0].ancestors.length).toBe(2);
-        expect(tree.children[1].children[0].children).toBe(undefined);
+        expect(tree.children[1].children[0].children).toBeFalsy();
     });
 
     it("Should create a site tree from folder structure, if no pages specified in configuration", function () {

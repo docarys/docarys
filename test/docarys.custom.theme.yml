@@ -1,0 +1,5 @@
+site_name: docarys2
+theme:
+  name: material
+  validate: false
+

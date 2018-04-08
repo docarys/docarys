@@ -16,21 +16,6 @@ const currentBranchCmd = "git rev-parse --abbrev-ref HEAD";
 
 function git() {
 
-    /**
-     * Determines the OS running docarys and Executes a git command in the given path. A valid Git repository should be present at the given cwd
-     * @param {*} cmd Command to execute
-     * @param {*} cwd Path where .git folder is located
-     */
-    function gitCommand(cmd, cwd) {
-        switch(os.platform()){
-            case "win32":
-            return gitWinCommand(cmd, cwd);
-            default:
-            return gitUnixCommand(cmd, cwd);
-            break;
-        }
-    }
-
      /**
      * Executes a git command in the given path, in a Windows OS. A valid Git repository should be present at the given cwd
      * @param {*} cmd Command to execute
@@ -52,6 +37,20 @@ function git() {
         });
 
         return result.toString();
+    }
+
+    /**
+     * Determines the OS running docarys and Executes a git command in the given path. A valid Git repository should be present at the given cwd
+     * @param {*} cmd Command to execute
+     * @param {*} cwd Path where .git folder is located
+     */
+    function gitCommand(cmd, cwd) {
+        switch(os.platform()){
+            case "win32":
+            return gitWinCommand(cmd, cwd);
+            default:
+            return gitUnixCommand(cmd, cwd);
+        }
     }
 
     /**
