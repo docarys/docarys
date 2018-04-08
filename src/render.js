@@ -21,6 +21,8 @@ function Render(config) {
         autoescape: false
     });
 
+    nunjucks.installJinjaCompat();
+
     /** 
      * Copy all theme assets to output folder, except html files used as templates 
      * */
@@ -72,6 +74,7 @@ function Render(config) {
             page.setActive(true); // IMPORTANT: Set page as active before render.
             var renderContext = { // This render context is what is effectly passed to nunjucks, and what is made available to theme creators
                 config: config.context,
+                language: config.language,
                 configExtra: config,
                 page: page,
                 nav: site
