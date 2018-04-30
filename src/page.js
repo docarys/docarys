@@ -21,6 +21,7 @@ function Page(title, filename, config, parser) {
         active: false,
         ancestors: [],
         content: null,
+        edit_url: config.context.edit_uri ? config.context.edit_uri + "/" + path.relative(config.cwdPath, config.sourcePath) + "/" + filename : null,
         sourcePath: config.sourcePath,
         sourceFile: path.resolve(path.join(config.sourcePath, filename)),
         targetPath: config.targetPath,
