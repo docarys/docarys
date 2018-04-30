@@ -89,7 +89,13 @@ function Render(config) {
                 };
             }
             mkdirp.sync(path.dirname(page.targetFile));
-            var html = nunjucks.render(page.templateFile, renderContext);
+            var html = "";
+            if (page.sourceFile.endsWith(".md")) {
+                html = nunjucks.render(page.templateFile, renderContext);
+            } else {
+                html = page.content;
+            }
+            
             fs.writeFileSync(page.targetFile, html);
             page.setActive(false); // IMPORTANT: Unset page as active after render
         }
