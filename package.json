@@ -1,6 +1,6 @@
 {
   "name": "docarys",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Yet another static web site utility for technical documentation",
   "main": "src/docarys.js",
   "bin": {
@@ -19,6 +19,7 @@
     "highlight.js": "^9.12.0",
     "live-server": "^1.2.0",
     "markdown-it": "^8.4.0",
+    "markdown-it-admonition": "^1.0.0",
     "markdown-it-anchor": "^4.0.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-highlightjs": "^3.0.0",
