@@ -59,7 +59,16 @@ function git() {
      */
     function parse(gitOutput) {
         gitOutput = "[" + gitOutput.substr(0, gitOutput.length - 2) + "]";
+        gitOutput = sanitizeJSON(gitOutput);
         return JSON.parse(gitOutput);
+    }
+
+    /**
+     * JavaScript: Sanitize JSON string before saving, so it can be read again. (Escapes newlines etc)
+     * @param {*} unsanitized 
+     */
+    function sanitizeJSON(unsanitized) {	
+        return unsanitized.replace(String.fromCharCode(92),String.fromCharCode(92,92));
     }
 
     /**
