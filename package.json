@@ -18,7 +18,7 @@
     "get-installed-path": "^3.0.1",
     "highlight.js": "^9.12.0",
     "live-server": "^1.2.0",
-    "markdown-it": "^8.4.0",
+    "markdown-it": "^10.0.0",
     "markdown-it-admonition": "^1.0.0",
     "markdown-it-anchor": "^4.0.0",
     "markdown-it-container": "^2.0.0",
