@@ -25,7 +25,7 @@
     "markdown-it-highlightjs": "^3.0.0",
     "markdown-it-sanitizer": "^0.4.3",
     "md5": "^2.2.1",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.3",
     "ncp": "^2.0.0",
     "nunjucks": "^3.1.2",
     "reading-time": "^1.1.0",
